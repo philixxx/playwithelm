@@ -1,11 +1,9 @@
 module Spots.Commands exposing (..)
 
-import Http
-import Json.Decode as Decode exposing (( := ))
-import Task
+import Json.Decode as Decode exposing ((:=))
 import Spots.Models exposing (..)
 
-import Spots.Messages exposing (..)
+
 --
 --fetchAll : Cmd Msg
 --fetchAll =
@@ -21,17 +19,19 @@ spotsDecoder : Decode.Decoder (List Spot)
 spotsDecoder =
     Decode.list spotDecode
 
+
 spotDecode : Decode.Decoder Spot
 spotDecode =
     Decode.object2 Spot
         ("properties" := propertiesDecode)
-        ("geometry" := geometryDecode )
+        ("geometry" := geometryDecode)
 
 
 geometryDecode : Decode.Decoder SpotGeometry
 geometryDecode =
     Decode.object1 SpotGeometry
         ("coordinates" := Decode.list (Decode.list (Decode.list Decode.float)))
+
 
 propertiesDecode : Decode.Decoder SpotProperties
 propertiesDecode =

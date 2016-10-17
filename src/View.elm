@@ -9,7 +9,6 @@ import EventMap.EventMapView
 import EventMap.Models exposing (EventMap)
 import EventMap.EventMapView exposing (..)
 import Spots.List exposing (..)
-import Html.Lazy exposing (lazy, lazy2)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 
@@ -31,6 +30,7 @@ page model =
         ]
 
 
+viewMap : EventMap -> Html Msg
 viewMap eventMap =
     header
         [ class "header" ]

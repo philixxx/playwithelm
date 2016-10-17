@@ -10,10 +10,11 @@ view : EventMap -> Html Msg
 view eventMap =
     div []
         [ nav eventMap
-          ,map eventMap
+        , map eventMap
         ]
 
-nav : EventMap-> Html Msg
+
+nav : EventMap -> Html Msg
 nav spots =
     div [ class "clearfix mb2 white bg-black" ]
         [ div [ class "left p2" ] [ text "Spots" ] ]
@@ -22,7 +23,4 @@ nav spots =
 map : EventMap -> Html Msg
 map eventmap =
     div [ class "p2" ]
-
-    [ text (toString eventmap.zoomLevel)]
-
-
+        [ text (toString eventmap.zoomLevel) ]

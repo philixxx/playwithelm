@@ -1,6 +1,5 @@
 module Leaflet.Types exposing (LatLng, ZoomPanOptions, defaultZoomPanOptions)
 
-
 {-| Types for Leaflet.js
 -}
 
@@ -9,6 +8,8 @@ module Leaflet.Types exposing (LatLng, ZoomPanOptions, defaultZoomPanOptions)
 -}
 type alias LatLng =
     ( Float, Float )
+
+
 {-| Reference: http://leafletjs.com/reference.html#map-zoomoptions
 -}
 type alias ZoomOptions =

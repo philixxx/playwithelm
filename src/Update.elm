@@ -7,6 +7,7 @@ import EventMap.Update exposing (..)
 import Leaflet.Ports
 
 
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         EventMsg subMsg ->
