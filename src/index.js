@@ -13,14 +13,13 @@ app.ports.setView.subscribe(function(data){
     global.map.setView.apply(global.map, data);
 });
 app.ports.loadData.subscribe(function(data){
-    console.log("InLoadData" + data);
+    console.log("InLoadData", data);
     L.brocante.load(1);
 });
 
 app.ports.selectPlace.subscribe(function(data){
-    console.log("Selet " + data);
-    var emplacement = global.dataManager.getEmplacementById("048878ef-807f-6efe-609d-bec2c6088304");
-    console.log("Selet e " + emplacement);
+    var emplacement = global.dataManager.getEmplacementById(data.replace(/\"/g,''));
+    console.log("Select e ", emplacement);
     global.selectManager.selectForReservation(emplacement)
     emplacement.refreshDisplay();
 });

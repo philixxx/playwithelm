@@ -5,4 +5,4 @@ import Spots.Models exposing (SpotId, Spot)
 
 
 type Msg
-    = Select
+    = Select String
