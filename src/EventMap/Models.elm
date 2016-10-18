@@ -1,5 +1,6 @@
 module EventMap.Models exposing (..)
 
+import Spots.Models exposing (..)
 
 type alias FeatureCollection =
     { features : List Spot
@@ -12,35 +13,6 @@ type alias EventMap =
     }
 
 
-type alias SpotId =
-    String
-
-
-type alias SpotProperties =
-    { id : String
-    , sectorName : String
-    , sectorIndex : Int
-    }
-
-
-type alias Spot =
-    { properties : SpotProperties
-    , geometry : SpotGeometry
-    }
-
-
-type alias SpotGeometry =
-    { coordinates : List (List (List Float))
-    }
-
-
-newS : Spot
-newS =
-    { properties = { id = "0", sectorName = "Z", sectorIndex = 0 }
-    , geometry = { coordinates = [ [ [ 1.0 ] ] ] }
-    }
-
-
 new : EventMap
 new =
     { zoomLevel = 2
@@ -50,5 +22,5 @@ new =
 
 newFC : FeatureCollection
 newFC =
-    { features = [ newS ]
+    { features = [ Spots.Models.newS ]
     }

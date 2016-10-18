@@ -23,8 +23,8 @@ type alias SpotGeometry =
     }
 
 
-new : Spot
-new =
+newS : Spot
+newS =
     { properties = { id = "0", sectorName = "Z", sectorIndex = 0 }
     , geometry = { coordinates = [ [ [ 1.0 ] ] ] }
     }
