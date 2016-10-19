@@ -1,4 +1,4 @@
-port module Leaflet.Ports exposing (setView, loadData, selectPlace)
+port module Leaflet.Ports exposing (..)
 
 import Leaflet.Types exposing (LatLng, ZoomPanOptions)
 
@@ -10,3 +10,6 @@ port loadData : () -> Cmd msg
 
 
 port selectPlace : String -> Cmd msg
+
+
+port block : String -> Cmd msg

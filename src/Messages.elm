@@ -1,12 +1,12 @@
 module Messages exposing (..)
 
 import EventMap.Messages
-import Spots.Messages
+import Spots.Messages exposing (SpotListMessages(..))
 import Leaflet.Types exposing (LatLng)
 
 
 type Msg
     = EventMsg EventMap.Messages.Msg
-    | SpotsMsg Spots.Messages.Msg
+    | SpotMsg Spots.Messages.SpotListMessages
     | SetLatLng LatLng
     | LoadData

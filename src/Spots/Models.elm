@@ -9,6 +9,7 @@ type alias SpotProperties =
     { id : String
     , sectorName : String
     , sectorIndex : Int
+    , status : String
     }
 
 
@@ -25,6 +26,6 @@ type alias SpotGeometry =
 
 newS : Spot
 newS =
-    { properties = { id = "0", sectorName = "Z", sectorIndex = 0 }
+    { properties = { id = "0", sectorName = "Z", sectorIndex = 0, status = "TODO" }
     , geometry = { coordinates = [ [ [ 1.0 ] ] ] }
     }

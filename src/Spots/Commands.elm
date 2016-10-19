@@ -2,6 +2,9 @@ module Spots.Commands exposing (..)
 
 import Json.Decode as Decode exposing ((:=))
 import Spots.Models exposing (..)
+import Http
+import Task
+import Spots.Messages exposing (SpotListMessages(..))
 
 
 --
@@ -13,6 +16,17 @@ import Spots.Models exposing (..)
 --fetchAllUrl : String
 --fetchAllUrl =
 --    "http://localhost:4000/Draw/"
+
+
+blockOne : Cmd SpotListMessages
+blockOne =
+    Http.get propertiesDecode blockOneUrl
+        |> Task.perform BlockFail BlockDone
+
+
+blockOneUrl : String
+blockOneUrl =
+    "http://localhost:5000/map/"
 
 
 spotsDecoder : Decode.Decoder (List Spot)
@@ -35,7 +49,8 @@ geometryDecode =
 
 propertiesDecode : Decode.Decoder SpotProperties
 propertiesDecode =
-    Decode.object3 SpotProperties
+    Decode.object4 SpotProperties
         ("Id" := Decode.string)
         ("SectorName" := Decode.string)
         ("SectorIndex" := Decode.int)
+        ("Status" := Decode.string)

@@ -23,3 +23,7 @@ app.ports.selectPlace.subscribe(function(data){
     global.selectManager.selectForReservation(emplacement)
     emplacement.refreshDisplay();
 });
+
+app.ports.block.subscribe(function(data){
+    console.log("In Data", data);
+});
