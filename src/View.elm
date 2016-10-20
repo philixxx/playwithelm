@@ -39,6 +39,6 @@ viewMap eventMap =
             , button [ onClick <| SetLatLng boulderLatLng ] [ text "Set Map Location to Boulder" ]
             , button [ onClick <| LoadData ] [ text "Load Data" ]
             , Html.App.map EventMsg (EventMap.EventMapView.view eventMap)
-            , Html.App.map SpotMsgParent (Spots.List.view eventMap.draw.features)
+            , Html.App.map SpotMsg (Spots.List.view eventMap.draw.features)
             ]
         ]

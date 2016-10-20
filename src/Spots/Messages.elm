@@ -1,14 +1,11 @@
 module Spots.Messages exposing (..)
 
-import Spots.Models exposing (SpotProperties, Spot)
+import Spots.Models exposing (SpotProperties)
 import Http
 
 
-type SpotListMessage
-    = SPLMessage SpotMessage
-
-
-type SpotMessage
-    = Block Spot
+type SpotListMessages
+    = Select String
+    | Block String
     | BlockFail Http.Error
     | BlockDone SpotProperties

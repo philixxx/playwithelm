@@ -2,10 +2,10 @@ module Update exposing (..)
 
 import Messages exposing (Msg(..))
 import Models exposing (Model)
-import EventMap.Models exposing (EventMap)
 import Spots.Update exposing (..)
 import EventMap.Update exposing (..)
 import Leaflet.Ports
+import Spots.Messages exposing (SpotListMessages(..))
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -19,13 +19,36 @@ update msg model =
                 Debug.log "WAAAT1??"
                     ( { model | eventMap = updatedMap }, Cmd.map EventMsg cmd )
 
-        SpotMsgParent subMsg ->
-            let
-                ( updatedMap, cmd ) =
-                    bla subMsg model.eventMap
-            in
-                Debug.log "WAAAT1??"
-                    ( { model | eventMap = updatedMap }, Cmd.none )
+        SpotMsg subMsg ->
+            case subMsg of
+                Select id ->
+                    let
+                        ( updatedMap, cmd, id ) =
+                            Spots.Update.update subMsg model.eventMap.draw.features
+                    in
+                        ( model, Leaflet.Ports.selectPlace (id) )
+
+                Block id ->
+                    let
+                        ( updatedSpot, cmd ) =
+                            Spots.Update.update subMsg id
+                    in
+                        Debug.log "In main update Block??"
+                            ( { model | eventMap = updatedSpot }, Cmd.map Block cmd )
+
+                BlockFail error ->
+                    let
+                        ( updatedMap, cmd, id ) =
+                            Spots.Update.update subMsg model.eventMap.draw.features
+                    in
+                        ( model, Cmd.none )
+
+                BlockDone ->
+                    let
+                        ( updatedMap, cmd, id ) =
+                            Spots.Update.update subMsg model.eventMap.draw.features
+                    in
+                        ( model, Leaflet.Ports.block (id) )
 
         SetLatLng latLng ->
             ( { model | latLng = latLng }
@@ -37,11 +60,3 @@ update msg model =
             ( model
             , Leaflet.Ports.loadData ()
             )
-
-
-bla msg eventmap =
-    let
-        ( sp, cmd ) =
-            Spots.Update.update msg eventmap.featureCollection
-    in
-        ( { eventmap | featureCollection = sp }, Cmd.none )
