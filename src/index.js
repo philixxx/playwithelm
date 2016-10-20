@@ -13,8 +13,8 @@ app.ports.setView.subscribe(function(data){
     global.map.setView.apply(global.map, data);
 });
 app.ports.loadData.subscribe(function(data){
-    console.log("InLoadData", data);
-    L.brocante.load(1);
+    console.log("InLoadData", JSON.stringify(data));
+
 });
 
 app.ports.selectPlace.subscribe(function(data){

@@ -8,8 +8,8 @@ server.use(middlewares)
 
 // Add custom routes before JSON Server router
 server.get('/block', function (req, res) {
-  console.log("bla")
-  res.jsonp(req.query)
+  console.log("bla" ,res)
+    res.json({Id: "dd9f124f-56f1-7dfa-70ee-433abf277c02", SectorName: "C", SectorIndex: 1, Status : "BLOCKED"})
 
 })
 
