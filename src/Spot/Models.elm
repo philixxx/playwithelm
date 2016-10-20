@@ -1,4 +1,4 @@
-module Spots.Models exposing (..)
+module Spot.Models exposing (..)
 
 
 type alias SpotId =
@@ -13,14 +13,14 @@ type alias SpotProperties =
     }
 
 
-type alias Spot =
-    { properties : SpotProperties
-    , geometry : SpotGeometry
+type alias SpotGeometry =
+    { coordinates : List (List (List Float))
     }
 
 
-type alias SpotGeometry =
-    { coordinates : List (List (List Float))
+type alias Spot =
+    { properties : SpotProperties
+    , geometry : SpotGeometry
     }
 
 
