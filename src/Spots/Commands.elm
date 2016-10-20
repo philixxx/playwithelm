@@ -4,7 +4,7 @@ import Json.Decode as Decode exposing ((:=))
 import Spots.Models exposing (..)
 import Http
 import Task
-import Spots.Messages exposing (SpotListMessages(..))
+import Spots.Messages exposing (SpotMessage(..))
 
 
 --
@@ -18,15 +18,15 @@ import Spots.Messages exposing (SpotListMessages(..))
 --    "http://localhost:4000/Draw/"
 
 
-blockOne : Cmd SpotListMessages
-blockOne =
-    Http.get propertiesDecode blockOneUrl
+blockOne : Spot -> Cmd SpotMessage
+blockOne spot =
+    Http.get propertiesDecode (blockOneUrl spot)
         |> Task.perform BlockFail BlockDone
 
 
-blockOneUrl : String
-blockOneUrl =
-    "http://localhost:5000/map/"
+blockOneUrl : Spot -> String
+blockOneUrl spot =
+    "http://localhost:5000/block/" ++ spot.properties.id
 
 
 spotsDecoder : Decode.Decoder (List Spot)

@@ -1,20 +1,28 @@
 module Spots.Update exposing (..)
 
-import Spots.Messages exposing (SpotListMessages(..))
-import Spots.Models exposing (Spot)
+import Spots.Messages exposing (SpotMessage(..))
+import Spots.Messages exposing (SpotListMessage(..))
+import Spots.Models exposing (Spot, SpotProperties)
 
 
-update : SpotListMessages -> List Spot -> ( List Spot, Cmd SpotListMessages, String )
+update : SpotListMessage -> List Spot -> ( List Spot, Cmd SpotListMessage )
 update message spots =
     case message of
-        Select id ->
-            ( spots, Cmd.none, id )
+        SPLMessage subMsg ->
+            ( spots, Cmd.none )
 
-        Block id ->
-            ( spots, Cmd.none, id )
+
+updateSpot : SpotMessage -> Spot -> ( Spot, Cmd SpotMessage )
+updateSpot message spot =
+    case message of
+        Block spot ->
+            Debug.log ("BLAAAA")
+                ( spot, Cmd.none )
 
         BlockFail error ->
-            ( spots, Cmd.none, "merde" )
+            Debug.log ("ERROR ")
+                ( spot, Cmd.none )
 
-        BlockDone properties ->
-            ( { spots | properties = properties }, Cmd.none, "Zuper" )
+        BlockDone updatedProperties ->
+            Debug.log ("Done ")
+                ( spot, Cmd.none )
