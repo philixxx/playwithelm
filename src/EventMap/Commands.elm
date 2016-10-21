@@ -5,8 +5,8 @@ import Json.Decode as Decode exposing ((:=))
 import Task
 import EventMap.Models exposing (..)
 import EventMap.Messages exposing (Msg(..))
-import Spots.Models exposing (..)
-import Spots.Commands exposing (..)
+import SpotList.Models exposing (..)
+import SpotList.Commands exposing (..)
 
 
 fetchAll : Cmd Msg

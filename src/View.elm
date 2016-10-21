@@ -8,7 +8,7 @@ import Models exposing (..)
 import EventMap.EventMapView
 import EventMap.Models exposing (EventMap)
 import EventMap.EventMapView exposing (..)
-import Spots.List exposing (..)
+import SpotList.View
 import Html exposing (..)
 import Html.Attributes exposing (..)
 
@@ -35,10 +35,8 @@ viewMap eventMap =
     header
         [ class "header" ]
         [ div []
-            [ button [ onClick <| SetLatLng chevreul ] [ text "Chevreul" ]
-            , button [ onClick <| SetLatLng boulderLatLng ] [ text "Set Map Location to Boulder" ]
-            , button [ onClick <| LoadData ] [ text "Load Data" ]
+            [ button [ onClick <| LoadData ] [ text "Load Data" ]
             , Html.App.map EventMsg (EventMap.EventMapView.view eventMap)
-            , Html.App.map SpotMsg (Spots.List.view eventMap.draw.features)
+            , Html.App.map SpotListMsg (SpotList.View.view eventMap.draw.features)
             ]
         ]

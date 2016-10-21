@@ -1,10 +1,11 @@
-module Spots.Commands exposing (..)
+module SpotList.Commands exposing (..)
 
-import Json.Decode as Decode exposing ((:=))
-import Spots.Models exposing (..)
 import Http
 import Task
-import Spots.Messages exposing (SpotListMessages(..))
+import Json.Decode as Decode exposing ((:=))
+import SpotList.Messages exposing (..)
+import SpotList.Models exposing (..)
+import Spot.Models exposing (..)
 
 
 --
@@ -16,12 +17,12 @@ import Spots.Messages exposing (SpotListMessages(..))
 --fetchAllUrl : String
 --fetchAllUrl =
 --    "http://localhost:4000/Draw/"
-
-
-blockOne : Cmd SpotListMessages
-blockOne =
-    Http.get propertiesDecode blockOneUrl
-        |> Task.perform BlockFail BlockDone
+--
+--
+-- blockOne : Cmd SpotList.Messages.Msg
+-- blockOne =
+--     Http.get propertiesDecode blockOneUrl
+--         |> Task.perform BlockFail BlockDone
 
 
 blockOneUrl : String
@@ -29,12 +30,12 @@ blockOneUrl =
     "http://localhost:5000/map/"
 
 
-spotsDecoder : Decode.Decoder (List Spot)
+spotsDecoder : Decode.Decoder (List Spot.Models.Spot)
 spotsDecoder =
     Decode.list spotDecode
 
 
-spotDecode : Decode.Decoder Spot
+spotDecode : Decode.Decoder Spot.Models.Spot
 spotDecode =
     Decode.object2 Spot
         ("properties" := propertiesDecode)
