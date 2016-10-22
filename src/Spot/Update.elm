@@ -16,3 +16,13 @@ update message spot =
                     { props | status = "BLOCKED" }
             in
                 ( { spot | properties = newProps }, Cmd.none )
+
+        Unblock ->
+            let
+                props =
+                    spot.properties
+
+                newProps =
+                    { props | status = "AVAILABLE" }
+            in
+                ( { spot | properties = newProps }, Cmd.none )

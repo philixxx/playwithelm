@@ -7,10 +7,18 @@ import Spot.Models exposing (..)
 import Spot.Messages exposing (..)
 
 
+toggleBlock : Spot -> Html Msg
+toggleBlock spot =
+    if spot.properties.status == "BLOCKED" then
+        button [ onClick (Unblock), class "toto" ] [ text ("Débloquer") ]
+    else
+        button [ onClick (Block), class "toto" ] [ text ("Bloquer") ]
+
+
 view : Spot -> Html Msg
 view spot =
     tr []
         [ td [] [ text (toString spot.properties.id) ]
-        , button [ onClick (Block), class "toto" ] [ text ("Bloquer") ]
+        , toggleBlock spot
         , td [] [ text (toString spot.properties.status) ]
         ]
