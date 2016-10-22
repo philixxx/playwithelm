@@ -3,23 +3,31 @@ module SpotList.Update exposing (..)
 import SpotList.Messages exposing (..)
 import SpotList.Models exposing (..)
 import Spot.Update exposing (..)
+import Spot.Models
+import Spot.Messages
+
+
+updateSpot : Spot.Messages.Msg -> Spot.Models.Spot -> ( Spot.Models.Spot, Cmd Spot.Messages.Msg )
+updateSpot msg spot =
+    Spot.Update.update msg spot
 
 
 update : Msg -> SpotList -> ( SpotList, Cmd Msg )
 update message spots =
     case message of
-        SpotMsg subMsg ->
+        SpotMsg spot subMsg ->
             let
-                updatedList =
-                    spots
-                        |> List.map (Spot.Update.update subMsg)
+                ( newSpot, cmd ) =
+                    updateSpot subMsg spot
 
                 updatedSpots =
-                    updatedList
-                        |> List.map fst
-
-                updatedCmds =
-                    updatedList
-                        |> List.map snd
+                    spots
+                        |> List.map
+                            (\s ->
+                                if s == spot then
+                                    newSpot
+                                else
+                                    s
+                            )
             in
-                ( updatedSpots, Cmd.map SpotList.Messages.SpotMsg (Cmd.batch updatedCmds) )
+                ( updatedSpots, Cmd.map (SpotList.Messages.SpotMsg spot) cmd )

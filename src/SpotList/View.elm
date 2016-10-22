@@ -6,6 +6,7 @@ import Html.Attributes exposing (class)
 import SpotList.Messages exposing (..)
 import SpotList.Models exposing (..)
 import Spot.View
+import Spot.Models
 
 
 view : SpotList -> Html SpotList.Messages.Msg
@@ -39,9 +40,15 @@ nav spots =
 --     List.map (Spot.View.view >> Html.App.map SpotMsg)
 
 
+viewSpot : Spot.Models.Spot -> Html SpotList.Messages.Msg
+viewSpot spot =
+    Spot.View.view spot
+        |> Html.App.map (SpotMsg spot)
+
+
 viewSpots : SpotList -> List (Html SpotList.Messages.Msg)
 viewSpots =
-    List.map (Spot.View.view >> Html.App.map SpotMsg)
+    List.map viewSpot
 
 
 list : SpotList -> Html SpotList.Messages.Msg

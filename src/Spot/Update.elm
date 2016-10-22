@@ -8,4 +8,11 @@ update : Msg -> Spot -> ( Spot, Cmd Msg )
 update message spot =
     case message of
         Block ->
-            ( spot, Cmd.none )
+            let
+                props =
+                    spot.properties
+
+                newProps =
+                    { props | status = "BLOCKED" }
+            in
+                ( { spot | properties = newProps }, Cmd.none )
