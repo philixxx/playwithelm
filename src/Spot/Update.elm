@@ -4,25 +4,23 @@ import Spot.Messages exposing (..)
 import Spot.Models exposing (..)
 
 
+changeStatus : Spot -> String -> Spot
+changeStatus spot status =
+    let
+        props =
+            spot.properties
+
+        newProps =
+            { props | status = status }
+    in
+        { spot | properties = newProps }
+
+
 update : Msg -> Spot -> ( Spot, Cmd Msg )
 update message spot =
     case message of
         Block ->
-            let
-                props =
-                    spot.properties
-
-                newProps =
-                    { props | status = "BLOCKED" }
-            in
-                ( { spot | properties = newProps }, Cmd.none )
+            ( changeStatus spot "BLOCKED", Cmd.none )
 
         Unblock ->
-            let
-                props =
-                    spot.properties
-
-                newProps =
-                    { props | status = "AVAILABLE" }
-            in
-                ( { spot | properties = newProps }, Cmd.none )
+            ( changeStatus spot "AVAILABLE", Cmd.none )
