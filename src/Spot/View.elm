@@ -11,6 +11,8 @@ toggleBlock : Spot -> Html Msg
 toggleBlock spot =
     if spot.properties.status == "BLOCKED" then
         button [ onClick (Unblock), class "toto" ] [ text ("Débloquer") ]
+    else if spot.properties.status == "ERROR" then
+        button [ onClick (Block), class "toto" ] [ text ("Error") ]
     else
         button [ onClick (Block), class "toto" ] [ text ("Bloquer") ]
 

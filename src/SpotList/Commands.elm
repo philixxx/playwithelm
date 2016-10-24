@@ -25,11 +25,6 @@ import Spot.Models exposing (..)
 --         |> Task.perform BlockFail BlockDone
 
 
-blockOneUrl : String
-blockOneUrl =
-    "http://localhost:5000/map/"
-
-
 spotsDecoder : Decode.Decoder (List Spot.Models.Spot)
 spotsDecoder =
     Decode.list spotDecode

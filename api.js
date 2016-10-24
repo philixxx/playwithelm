@@ -9,7 +9,7 @@ server.use(middlewares)
 // Add custom routes before JSON Server router
 server.get('/block', function (req, res) {
   console.log("bla")
-  res.jsonp(req.query)
+  res.json("{bla : ttest}")
 
 })
 
