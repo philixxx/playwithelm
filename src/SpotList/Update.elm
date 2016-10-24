@@ -24,7 +24,7 @@ update message spots =
                     spots
                         |> List.map
                             (\s ->
-                                if s == spot then
+                                if s.properties.id == spot.properties.id then
                                     newSpot
                                 else
                                     s
