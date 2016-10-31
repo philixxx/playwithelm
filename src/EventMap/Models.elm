@@ -1,14 +1,19 @@
 module EventMap.Models exposing (..)
 
-import Spots.Models exposing (..)
+import SpotList.Models exposing (..)
+
 
 type alias FeatureCollection =
-    { features : List Spot
+    { features : SpotList.Models.SpotList
     }
 
 
+type alias ZoomLevel =
+    Int
+
+
 type alias EventMap =
-    { zoomLevel : Int
+    { zoomLevel : ZoomLevel
     , draw : FeatureCollection
     }
 
@@ -22,5 +27,5 @@ new =
 
 newFC : FeatureCollection
 newFC =
-    { features = [ Spots.Models.newS ]
+    { features = SpotList.Models.initialModel
     }
