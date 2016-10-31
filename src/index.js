@@ -13,8 +13,13 @@ app.ports.setView.subscribe(function(data){
     global.map.setView.apply(global.map, data);
 });
 app.ports.loadData.subscribe(function(data){
-    console.log("InLoadData", data);
-    L.brocante.load(1);
+    console.log("InLoadData", JSON.stringify(data));
+    var bla = {
+                "type": "FeatureCollection",
+                "features": [{}]
+            };
+    var drawnItems = L.geoJson(bla).addTo(map);
+    dataManager.loadDataFromJson(data,drawnItems)
 });
 
 app.ports.selectPlace.subscribe(function(data){

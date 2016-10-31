@@ -1,10 +1,8 @@
-module Spots.Commands exposing (..)
+module SpotList.Commands exposing (..)
 
 import Json.Decode as Decode exposing ((:=))
-import Spots.Models exposing (..)
-import Http
-import Task
-import Spots.Messages exposing (SpotMessage(..))
+import Spot.Models exposing (..)
+import Spot.Commands exposing (..)
 
 
 --
@@ -16,25 +14,20 @@ import Spots.Messages exposing (SpotMessage(..))
 --fetchAllUrl : String
 --fetchAllUrl =
 --    "http://localhost:4000/Draw/"
+--
+--
+-- blockOne : Cmd SpotList.Messages.Msg
+-- blockOne =
+--     Http.get propertiesDecode blockOneUrl
+--         |> Task.perform BlockFail BlockDone
 
 
-blockOne : Spot -> Cmd SpotMessage
-blockOne spot =
-    Http.get propertiesDecode (blockOneUrl spot)
-        |> Task.perform BlockFail BlockDone
-
-
-blockOneUrl : Spot -> String
-blockOneUrl spot =
-    "http://localhost:5000/block/" ++ spot.properties.id
-
-
-spotsDecoder : Decode.Decoder (List Spot)
+spotsDecoder : Decode.Decoder (List Spot.Models.Spot)
 spotsDecoder =
     Decode.list spotDecode
 
 
-spotDecode : Decode.Decoder Spot
+spotDecode : Decode.Decoder Spot.Models.Spot
 spotDecode =
     Decode.object2 Spot
         ("properties" := propertiesDecode)
@@ -53,4 +46,4 @@ propertiesDecode =
         ("Id" := Decode.string)
         ("SectorName" := Decode.string)
         ("SectorIndex" := Decode.int)
-        ("Status" := Decode.string)
+        ("Status" := Decode.string `Decode.andThen` statusDecoder)

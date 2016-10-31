@@ -2,10 +2,10 @@ module Update exposing (..)
 
 import Messages exposing (Msg(..))
 import Models exposing (Model)
-import EventMap.Models exposing (EventMap)
-import Spots.Update exposing (..)
+import SpotList.Update exposing (..)
 import EventMap.Update exposing (..)
 import Leaflet.Ports
+import EventMap.Commands exposing (encode)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -16,32 +16,31 @@ update msg model =
                 ( updatedMap, cmd ) =
                     EventMap.Update.update subMsg model.eventMap
             in
-                Debug.log "WAAAT1??"
-                    ( { model | eventMap = updatedMap }, Cmd.map EventMsg cmd )
+                ( { model | eventMap = updatedMap }, Cmd.map EventMsg cmd )
 
-        SpotMsgParent subMsg ->
+        SpotListMsg subMsg ->
             let
                 ( updatedMap, cmd ) =
-                    bla subMsg model.eventMap
-            in
-                Debug.log "WAAAT1??"
-                    ( { model | eventMap = updatedMap }, Cmd.none )
+                    SpotList.Update.update subMsg model.eventMap.draw.features
 
-        SetLatLng latLng ->
-            ( { model | latLng = latLng }
-              -- Let's just assume that we'll have a `Leaflet.Ports` module that lets us use something like the built in API
-            , Leaflet.Ports.setView ( latLng, 13, model.zoomPanOptions )
-            )
+                eventMap =
+                    model.eventMap
+
+                draw =
+                    eventMap.draw
+
+                newDraw =
+                    { draw | features = updatedMap }
+
+                newEventMap =
+                    { eventMap | draw = newDraw }
+            in
+                ( { model | eventMap = newEventMap }, Cmd.map SpotListMsg cmd )
 
         LoadData ->
             ( model
-            , Leaflet.Ports.loadData ()
+            , Leaflet.Ports.loadData (encode model.eventMap)
             )
 
-
-bla msg eventmap =
-    let
-        ( sp, cmd ) =
-            Spots.Update.update msg eventmap.featureCollection
-    in
-        ( { eventmap | featureCollection = sp }, Cmd.none )
+        otherwise ->
+            ( model, Cmd.none )
