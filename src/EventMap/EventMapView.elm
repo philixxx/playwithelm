@@ -22,5 +22,8 @@ nav spots =
 
 map : EventMap -> Html Msg
 map eventmap =
-    div [ class "p2" ]
-        [ text (toString eventmap.zoomLevel) ]
+    div []
+        [ div [ class "p2" ]
+            [ text (toString eventmap.zoomLevel) ]
+        , div [ Html.Attributes.id "map" ] []
+        ]

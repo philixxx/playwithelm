@@ -1,11 +1,8 @@
 module SpotList.Commands exposing (..)
 
-import Http
-import Task
 import Json.Decode as Decode exposing ((:=))
-import SpotList.Messages exposing (..)
-import SpotList.Models exposing (..)
 import Spot.Models exposing (..)
+import Spot.Commands exposing (..)
 
 
 --
@@ -49,4 +46,4 @@ propertiesDecode =
         ("Id" := Decode.string)
         ("SectorName" := Decode.string)
         ("SectorIndex" := Decode.int)
-        ("Status" := Decode.string)
+        ("Status" := Decode.string `Decode.andThen` statusDecoder)

@@ -12,8 +12,15 @@ type alias ZoomLevel =
     Int
 
 
+type alias Center =
+    { lat : Float
+    , lng : Float
+    }
+
+
 type alias EventMap =
     { zoomLevel : ZoomLevel
+    , center : Center
     , draw : FeatureCollection
     }
 
@@ -21,6 +28,7 @@ type alias EventMap =
 new : EventMap
 new =
     { zoomLevel = 2
+    , center = { lat = 0.0, lng = 0.0 }
     , draw = newFC
     }
 

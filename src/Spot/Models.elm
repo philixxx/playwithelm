@@ -9,7 +9,7 @@ type alias SpotProperties =
     { id : String
     , sectorName : String
     , sectorIndex : Int
-    , status : String
+    , status : SpotStatus
     }
 
 
@@ -26,6 +26,18 @@ type alias Spot =
 
 newS : Spot
 newS =
-    { properties = { id = "0", sectorName = "Z", sectorIndex = 0, status = "TODO" }
+    { properties = { id = "0", sectorName = "Z", sectorIndex = 0, status = AVAILABLE }
     , geometry = { coordinates = [ [ [ 1.0 ] ] ] }
     }
+
+
+type alias BlockResponse =
+    { id : SpotId
+    , status : SpotStatus
+    }
+
+
+type SpotStatus
+    = BLOCKED
+    | AVAILABLE
+    | UNKNOWN

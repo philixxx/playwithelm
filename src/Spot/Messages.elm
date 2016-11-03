@@ -6,6 +6,6 @@ import Http
 
 type Msg
     = Block
-    | BlockDone SpotProperties
+    | BlockDone BlockResponse
     | BlockFail Http.Error
     | Unblock

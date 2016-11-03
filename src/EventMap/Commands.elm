@@ -24,9 +24,17 @@ fetchAllUrl =
 
 mapDecoder : Decode.Decoder EventMap
 mapDecoder =
-    Decode.object2 EventMap
+    Decode.object3 EventMap
         ("Zoomlevel" := Decode.int)
+        ("Center" := decodeCenter)
         ("Draw" := featureCollectionDecoder)
+
+
+decodeCenter : Decode.Decoder Center
+decodeCenter =
+    Decode.object2 Center
+        ("lng" := Decode.float)
+        ("lat" := Decode.float)
 
 
 featureCollectionDecoder : Decode.Decoder FeatureCollection
@@ -47,8 +55,16 @@ encodeEventMap eventmap =
             eventmap.draw.features
     in
         [ ( "ZoomLevel", Json.int eventmap.zoomLevel )
+        , ( "Center", encodeCenter eventmap.center |> Json.object )
         , ( "Draw", encodeFeatureCollection feat |> Json.object )
         ]
+
+
+encodeCenter : Center -> List ( String, Json.Value )
+encodeCenter center =
+    [ ( "lng", Json.float center.lng )
+    , ( "lat", Json.float center.lat )
+    ]
 
 
 encodeFeatureCollection : SpotList -> List ( String, Json.Value )

@@ -6,7 +6,7 @@ import Spot.Commands exposing (block)
 import Http exposing (Error(..))
 
 
-changeStatus : Spot -> String -> Spot
+changeStatus : Spot -> SpotStatus -> Spot
 changeStatus spot status =
     let
         props =
@@ -22,28 +22,28 @@ update : Msg -> Spot -> ( Spot, Cmd Msg )
 update message spot =
     case message of
         Block ->
-            ( changeStatus spot "BLOCKING", block spot )
+            ( changeStatus spot UNKNOWN, block spot )
 
-        BlockDone spotProperties ->
-            ( changeStatus spot "BLOCKED", Cmd.none )
+        BlockDone blockResponse ->
+            ( changeStatus spot blockResponse.status, Cmd.none )
 
         BlockFail error ->
             case error of
                 UnexpectedPayload errMsg ->
                     Debug.log ("In Error" ++ errMsg)
-                        ( changeStatus spot "ERROR", Cmd.none )
+                        ( changeStatus spot UNKNOWN, Cmd.none )
 
                 NetworkError ->
                     Debug.log ("In Error")
-                        ( changeStatus spot "ERROR", Cmd.none )
+                        ( changeStatus spot UNKNOWN, Cmd.none )
 
                 BadResponse a b ->
                     Debug.log ("In Error")
-                        ( changeStatus spot "ERROR", Cmd.none )
+                        ( changeStatus spot UNKNOWN, Cmd.none )
 
                 Timeout ->
                     Debug.log ("In Error")
-                        ( changeStatus spot "ERROR", Cmd.none )
+                        ( changeStatus spot UNKNOWN, Cmd.none )
 
         Unblock ->
-            ( changeStatus spot "AVAILABLE", Cmd.none )
+            ( changeStatus spot AVAILABLE, Cmd.none )

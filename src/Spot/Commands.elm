@@ -9,7 +9,7 @@ import Spot.Models exposing (..)
 
 blockOneUrl : Spot -> String
 blockOneUrl spot =
-    "http://localhost:5000/block?id=" ++ spot.properties.id
+    "http://localhost:8000/api/block/" ++ spot.properties.id
 
 
 block : Spot -> Cmd Msg
@@ -18,11 +18,28 @@ block spot =
         |> Task.perform BlockFail BlockDone
 
 
-blockDecoder : Decode.Decoder SpotProperties
+blockDecoder : Decode.Decoder BlockResponse
 blockDecoder =
-    Decode.object4
-        SpotProperties
+    Decode.object2
+        BlockResponse
         ("Id" := Decode.string)
-        ("SectorName" := Decode.string)
-        ("SectorIndex" := Decode.int)
-        ("Status" := Decode.string)
+        ("Status" := Decode.string `Decode.andThen` statusDecoder)
+
+
+statusDecoder : String -> Decode.Decoder SpotStatus
+statusDecoder status =
+    case status of
+        "AVAILABLE" ->
+            Debug.log ("STATTTT" ++ status)
+                Decode.succeed
+                AVAILABLE
+
+        "BLOCKED" ->
+            Debug.log ("STATTTT" ++ status)
+                Decode.succeed
+                BLOCKED
+
+        _ ->
+            Debug.log ("STATTTT ERROR" ++ status)
+                Decode.succeed
+                UNKNOWN
