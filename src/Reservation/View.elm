@@ -1,14 +1,12 @@
-module View exposing (..)
+module Reservation.View exposing (..)
 
 import Html exposing (Html, div, text, button)
 import Html.App
 import Html.Events exposing (onClick)
 import Messages exposing (Msg(..))
 import Models exposing (..)
-import EventMap.EventMapView
 import EventMap.Models exposing (EventMap)
-import EventMap.EventMapView exposing (..)
-import SpotList.View
+import Basket.View
 import Html exposing (..)
 import Html.Attributes exposing (..)
 
@@ -35,8 +33,8 @@ viewMap eventMap =
     header
         [ class "header" ]
         [ div []
-            [ button [ onClick <| LoadData ] [ text "Load Data" ]
-            , Html.App.map EventMsg (EventMap.EventMapView.view eventMap)
-            , Html.App.map SpotListMsg (SpotList.View.view eventMap.draw.features)
+            [ button [ onClick <| LoadData ] [ text "Load Data for Reservation" ]
+            , div [ Html.Attributes.id "map" ] []
+            , Html.App.map SpotListMsg (Basket.View.view eventMap.draw.features)
             ]
         ]

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Elm App</title>
+    <link rel="stylesheet" href="./main.css" />
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+</head>
+<body>
+    <div>Resevation View</div>
+    <div id="main"></div>
+
+    <script src="/appreservation.js"></script>
+    <script type="text/javascript">
+    (function() {
+        var script = document.createElement('script')
+        script.setAttribute("type", "text/javascript")
+        script.setAttribute("src", "map/reservation.js")
+        document.getElementsByTagName("head")[0].appendChild(script)
+    })();
+    </script>
+
+</body>
+</html>

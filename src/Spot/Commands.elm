@@ -9,7 +9,7 @@ import Spot.Models exposing (..)
 
 blockOneUrl : Spot -> String
 blockOneUrl spot =
-    "http://localhost:8000/api/block/" ++ spot.properties.id
+    "http://localhost:5000/api/block/" ++ spot.properties.id
 
 
 block : Spot -> Cmd Msg

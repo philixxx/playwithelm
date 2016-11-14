@@ -7,9 +7,9 @@ var middlewares = jsonServer.defaults()
 server.use(middlewares)
 
 // Add custom routes before JSON Server router
-server.get('/block', function (req, res) {
-  console.log("bla" ,res)
-    res.json({Id: "dd9f124f-56f1-7dfa-70ee-433abf277c02", SectorName: "C", SectorIndex: 1, Status : "BLOCKED"})
+server.get('/api/block/:id', function (req, res) {
+  console.log("bla" ,req.params.id)
+    res.json({Id: req.params.id, SectorName: "C", SectorIndex: 1, Status : "BLOCKED"})
 
 })
 

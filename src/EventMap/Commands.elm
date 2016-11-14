@@ -76,27 +76,38 @@ encodeFeatureCollection spotList =
 
 encodeFeature : Spot -> List ( String, Json.Value )
 encodeFeature { properties, geometry } =
-    let
-        ( fakeProperties, fakeGeometry ) =
-            ( Json.object
-                [ ( "id", Json.string "vla" )
-                , ( "sectorIndex", Json.int 42 )
-                , ( "sectorName", Json.string "bli" )
-                , ( "status", Json.string "AVAILABLE" )
-                ]
-            , Json.object []
-            )
-    in
-        [ ( "type", Json.string "Feature" )
-        , ( "geometry", encodeGeometry geometry |> Json.object )
-        , ( "properties", fakeProperties )
-        ]
+    [ ( "type", Json.string "Feature" )
+    , ( "geometry", encodeGeometry geometry |> Json.object )
+    , ( "properties", encodeProperties properties |> Json.object )
+    ]
 
 
 encodeGeometry : SpotGeometry -> List ( String, Json.Value )
 encodeGeometry { coordinates } =
     [ ( "type", Json.string "Polygon" )
     , ( "coordinates", coordinates |> List.map (List.map encodePosition >> Json.list) |> Json.list )
+    ]
+
+
+convertStatusToString : SpotStatus -> Json.Value
+convertStatusToString status =
+    case status of
+        AVAILABLE ->
+            Json.string "AVAILABLE"
+
+        BLOCKED ->
+            Json.string "BLOCKED"
+
+        UNKNOWN ->
+            Json.string "UNKNOWN"
+
+
+encodeProperties : SpotProperties -> List ( String, Json.Value )
+encodeProperties properties =
+    [ ( "Id", Json.string properties.id )
+    , ( "SectorIndex", Json.int properties.sectorIndex )
+    , ( "SectorName", Json.string properties.sectorName )
+    , ( "Status", convertStatusToString properties.status )
     ]
 
 

@@ -2,7 +2,7 @@
 // require('ace-css/css/ace.css');
 require('font-awesome/css/font-awesome.css');
 // On importe index.html pour qu'il soit intégré au *dist*
-var Elm = require('./Main.elm');
+var Elm = require('./MainReservation.elm');
 
 var mountNode = document.getElementById('main');
 
@@ -14,12 +14,8 @@ app.ports.setView.subscribe(function(data){
 });
 app.ports.loadData.subscribe(function(data){
     console.log("InLoadData", JSON.stringify(data));
-    var bla = {
-                "type": "FeatureCollection",
-                "features": [{}]
-            };
-    var drawnItems = L.geoJson(bla).addTo(map);
-    dataManager.loadDataFromJson(data,drawnItems)
+
+    dataManager.loadDataFromJson(data,global.drawnItems )
 });
 
 app.ports.selectPlace.subscribe(function(data){
@@ -29,6 +25,8 @@ app.ports.selectPlace.subscribe(function(data){
     emplacement.refreshDisplay();
 });
 
-app.ports.block.subscribe(function(data){
-    console.log("In Data", data);
+app.ports.spotPropertiesHasBeenUpdated.subscribe(function(data){
+  console.log("Try to update " + data.Id)
+  global.dataManager.updateEmplacementProperties(data.Id,data)
+
 });

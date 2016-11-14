@@ -2,12 +2,12 @@ var path = require("path");
 module.exports = {
     entry: {
         app: [
-            './src/index.js'
+            './src/indexedition.js'
         ]
     },
     output: {
         path: path.resolve(__dirname + '/dist'),
-        filename: '[name].js',
+        filename: 'appedition.js',
     },
     module: {
         loaders: [

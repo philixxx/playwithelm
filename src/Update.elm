@@ -35,7 +35,8 @@ update msg model =
                 newEventMap =
                     { eventMap | draw = newDraw }
             in
-                ( { model | eventMap = newEventMap }, Cmd.map SpotListMsg cmd )
+                Debug.log (toString cmd)
+                    ( { model | eventMap = newEventMap }, Cmd.map SpotListMsg cmd )
 
         LoadData ->
             ( model
