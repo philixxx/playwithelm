@@ -25,9 +25,9 @@
     "buildreservation": "webpack --config webpack.reservation.config.js",
     "watchreservation": "webpack --config webpack.reservation.config.js --watch",
     "devreservation": "webpack-dev-server --config webpack.reservation.config.js --port 3000",
-    "buildcreation": "webpack --config webpack.edition.config.js",
-    "watchcreation": "webpack --config webpack.edition.config.js --watch",
-    "devcreation": "webpack-dev-server --config webpack.edition.config.js --port 3000"
+    "buildedition": "webpack --config webpack.edition.config.js",
+    "watchedition": "webpack --config webpack.edition.config.js --watch",
+    "devedition": "webpack-dev-server --config webpack.edition.config.js --port 3000"
   },
   "repository": {
     "type": "git",
