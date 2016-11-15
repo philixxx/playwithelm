@@ -4,7 +4,6 @@ import Spot.Messages exposing (..)
 import Spot.Models exposing (..)
 import Spot.Commands exposing (block)
 import EventMap.Commands exposing (encodeProperties)
-import Http exposing (Error(..))
 import Leaflet.Ports
 import Json.Encode as Json
 

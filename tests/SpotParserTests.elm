@@ -3,7 +3,6 @@ module SpotParserTests exposing (..)
 import Test exposing (..)
 import Expect
 import String
-import Http
 import Json.Decode as Decode exposing (( := ))
 import Task
 

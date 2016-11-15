@@ -1,10 +1,10 @@
 module Spot.Commands exposing (..)
 
-import Http
 import Task
-import Json.Decode as Decode exposing ((:=))
+import Json.Decode as Decode exposing (field)
 import Spot.Messages exposing (Msg(..))
 import Spot.Models exposing (..)
+import Http
 
 
 blockOneUrl : Spot -> String
@@ -12,18 +12,21 @@ blockOneUrl spot =
     "http://localhost:5000/api/block/" ++ spot.properties.id
 
 
+type Bla
+    = LoadMetadata (Result Http.Error Metadata)
+
+
 block : Spot -> Cmd Msg
 block spot =
-    Http.get blockDecoder (blockOneUrl spot)
-        |> Task.perform BlockFail BlockDone
+    Http.send (Bla) (blockOneUrl spot)
 
 
 blockDecoder : Decode.Decoder BlockResponse
 blockDecoder =
-    Decode.object2
+    Decode.map2
         BlockResponse
-        ("Id" := Decode.string)
-        ("Status" := Decode.string `Decode.andThen` statusDecoder)
+        (field "Id" Decode.string)
+        (field "Status" Decode.string |> Decode.andThen statusDecoder)
 
 
 statusDecoder : String -> Decode.Decoder SpotStatus

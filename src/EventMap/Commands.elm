@@ -1,6 +1,5 @@
 module EventMap.Commands exposing (..)
 
-import Http
 import Json.Decode as Decode exposing ((:=))
 import Task
 import EventMap.Models exposing (..)

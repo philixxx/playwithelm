@@ -1,7 +1,6 @@
 module Management.View exposing (..)
 
 import Html exposing (Html, div, text, button)
-import Html.App
 import Html.Events exposing (onClick)
 import Messages exposing (Msg(..))
 import Models exposing (..)
@@ -36,7 +35,7 @@ viewMap eventMap =
         [ class "header" ]
         [ div []
             [ button [ onClick <| LoadData ] [ text "Load Data for Management" ]
-            , Html.App.map EventMsg (EventMap.EventMapView.view eventMap)
-            , Html.App.map SpotListMsg (SpotList.View.view eventMap.draw.features)
+            , Html.map EventMsg (EventMap.EventMapView.view eventMap)
+            , Html.map SpotListMsg (SpotList.View.view eventMap.draw.features)
             ]
         ]
