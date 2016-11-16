@@ -11,7 +11,7 @@ port setView : ( LatLng, Int, ZoomPanOptions ) -> Cmd msg
 port loadData : Json.Encode.Value -> Cmd msg
 
 
-port selectPlace : String -> Cmd msg
+port spotActionOn : (( String, String ) -> msg) -> Sub msg
 
 
 port spotPropertiesHasBeenUpdated : Value -> Cmd msg

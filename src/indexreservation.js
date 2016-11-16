@@ -8,25 +8,23 @@ var mountNode = document.getElementById('main');
 
 var app = Elm.Main.embed(mountNode);
 
+global.selectObserver = {select : function(id){
+      app.ports.spotActionOn.send(["SELECTED",id]);
+  },
+  unselect : function(id){
+      app.ports.spotActionOn.send(["UNSELECTED",id]);
+    }
+}
+
 app.ports.setView.subscribe(function(data){
-    console.log(data);
     global.map.setView.apply(global.map, data);
 });
 app.ports.loadData.subscribe(function(data){
-    console.log("InLoadData", JSON.stringify(data));
-
     dataManager.loadDataFromJson(data,global.drawnItems )
 });
 
-app.ports.selectPlace.subscribe(function(data){
-    var emplacement = global.dataManager.getEmplacementById(data.replace(/\"/g,''));
-    console.log("Select e ", emplacement);
-    global.selectManager.selectForReservation(emplacement)
-    emplacement.refreshDisplay();
-});
 
 app.ports.spotPropertiesHasBeenUpdated.subscribe(function(data){
-  console.log("Try to update " + data.Id)
   global.dataManager.updateEmplacementProperties(data.Id,data)
 
 });

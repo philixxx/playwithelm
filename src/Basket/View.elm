@@ -1,67 +1,37 @@
 module Basket.View exposing (..)
 
 import Html exposing (..)
-import Html.App exposing (..)
 import Html.Attributes exposing (class)
-import SpotList.Messages exposing (..)
-import SpotList.Models exposing (..)
-import Spot.View
-import Spot.Models
+import Basket.Messages exposing (..)
+import Basket.Models exposing (..)
+import Set exposing (Set, toList)
+import Html.Events exposing (onClick)
 
 
-view : SpotList -> Html SpotList.Messages.Msg
-view spots =
-    div []
-        [ nav spots
-        , list spots
-        ]
-
-
-nav : SpotList -> Html SpotList.Messages.Msg
-nav spots =
-    div [ class "clearfix mb2 white bg-black" ]
-        [ div [ class "left p2" ] [ text "Spots" ] ]
-
-
-
--- Solution bourrine
--- viewSpots : SpotList -> List (Html SpotList.Messages.Msg)
--- viewSpots spots =
---     spots
---         |> List.map (\spot -> spot |> Spot.View.view |> Html.App.map SpotMsg)
--- Solution plus claire
--- viewSpots : SpotList -> List (Html SpotList.Messages.Msg)
--- viewSpots spots =
---         |> List.map (Spot.View.view)
---         |> List.map (Html.App.map SpotMsg)
--- Solution ultime en point-free notation de ouf
--- viewSpots : SpotList -> List (Html SpotList.Messages.Msg)
--- viewSpots =
---     List.map (Spot.View.view >> Html.App.map SpotMsg)
-
-
-viewSpot : Spot.Models.Spot -> Html SpotList.Messages.Msg
-viewSpot spot =
-    Spot.View.view spot
-        |> Html.App.map (SpotMsg spot)
-
-
-viewSpots : SpotList -> List (Html SpotList.Messages.Msg)
-viewSpots =
-    List.map viewSpot
-
-
-list : SpotList -> Html SpotList.Messages.Msg
-list spots =
+view : Basket -> Html Basket.Messages.Msg
+view basket =
     div [ class "p2" ]
-        [ text (toString (List.length spots))
+        [ text (toString (List.length (toList basket.spots)))
         , table []
             [ thead []
                 [ tr []
                     [ th [] [ text "Id" ]
-                    , th [] [ text "Actions" ]
+                    , th [] [ text "Supprimer" ]
                     ]
                 ]
-            , tbody [] (viewSpots spots)
+            , tbody [] (viewBasket (toList basket.spots))
             ]
+        ]
+
+
+viewBasket : List String -> List (Html Basket.Messages.Msg)
+viewBasket spots =
+    List.map viewBasketLine spots
+
+
+viewBasketLine : String -> Html Basket.Messages.Msg
+viewBasketLine spotId =
+    tr []
+        [ td [] [ text (toString spotId) ]
+        , button [ onClick (RemoveSpotFromBasket spotId), class "toto" ] [ text ("Supprimer") ]
         ]

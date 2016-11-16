@@ -30,16 +30,14 @@ statusDecoder : String -> Decode.Decoder SpotStatus
 statusDecoder status =
     case status of
         "AVAILABLE" ->
-            Debug.log ("STATTTT" ++ status)
-                Decode.succeed
+            Decode.succeed
                 AVAILABLE
 
         "BLOCKED" ->
-            Debug.log ("STATTTT" ++ status)
-                Decode.succeed
+            Decode.succeed
                 BLOCKED
 
         _ ->
-            Debug.log ("STATTTT ERROR" ++ status)
+            Debug.log ("TODO implements status " ++ status)
                 Decode.succeed
                 UNKNOWN
