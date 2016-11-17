@@ -32,11 +32,11 @@ app.ports.spotPropertiesHasBeenUpdated.subscribe(function(data){
 app.ports.callReservation.subscribe(function(data){
   //delegate the next stuff to php/standard js
 
-  if (typeof  prereserveButtonAction === "function")
+  if (typeof  preReserveButtonAction === "function")
   {
-    prereserveButtonAction(data);
+    preReserveButtonAction(data);
   }else{
-    console.log("Unable to call prereserve action ", data)
+    console.log("Unable to call preReserveButtonAction action ", data)
   }
 
 })
