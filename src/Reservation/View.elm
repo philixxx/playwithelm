@@ -34,7 +34,6 @@ viewMap model =
         [ class "header" ]
         [ div []
             [ button [ onClick <| LoadData ] [ text "Load Data for Reservation" ]
-            , div [ Html.Attributes.id "map" ] []
             , Html.App.map BasketMsg (Basket.View.view model.basket)
             , button [ Html.Attributes.id "prereserve-button", onClick <| Pay ] [ text "Pay" ]
             ]
