@@ -28,3 +28,15 @@ app.ports.spotPropertiesHasBeenUpdated.subscribe(function(data){
   global.dataManager.updateEmplacementProperties(data.Id,data)
 
 });
+
+app.ports.callReservation.subscribe(function(data){
+  //delegate the next stuff to php/standard js
+
+  if (typeof  prereserveButtonAction === "function")
+  {
+    prereserveButtonAction(data);
+  }else{
+    console.log("Unable to call prereserve action ", data)
+  }
+
+})

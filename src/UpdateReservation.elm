@@ -6,7 +6,9 @@ import SpotList.Update exposing (..)
 import EventMap.Update exposing (..)
 import Basket.Update exposing (..)
 import Leaflet.Ports
+import Payment.Ports
 import EventMap.Commands exposing (encode)
+import Payment.Commands exposing (reservationEncoder)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -50,6 +52,9 @@ update msg model =
                     Basket.Update.update subMsg model.basket
             in
                 ( { model | basket = updatedBasked }, Cmd.none )
+
+        Pay ->
+            ( model, Payment.Ports.callReservation (reservationEncoder model.basket) )
 
         otherwise ->
             ( model, Cmd.none )

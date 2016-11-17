@@ -14,3 +14,4 @@ type Msg
     | LoadData
     | SpotttClickedMsg Leaflet.Messages.Msg
     | BasketMsg Basket.Messages.Msg
+    | Pay
