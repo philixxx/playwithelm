@@ -14,5 +14,11 @@ type alias Model =
 initialModel : Model
 initialModel =
     { eventMap = new
-    , basket = { spots = empty }
+    , basket = { spots = empty, quotation = emptyQuotation }
+    }
+
+
+emptyQuotation : Quotation
+emptyQuotation =
+    { quotation = 0
     }

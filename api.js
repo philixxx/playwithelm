@@ -12,10 +12,18 @@ server.get('/api/block/:id', function (req, res) {
     res.json({Id: req.params.id, SectorName: "C", SectorIndex: 1, Status : "BLOCKED"})
 
 })
+server.post('/api/pricequote/:id', function (req, res) {
 
+    res.json({quotation: 10})
+
+})
+server.use(jsonServer.bodyParser)
 server.use(function (req, res, next) {
+
   if (req.method === 'POST') {
     req.body.createdAt = Date.now()
+    
+
   }
   // Continue to JSON Server router
   next()

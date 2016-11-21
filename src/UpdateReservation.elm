@@ -51,7 +51,7 @@ update msg model =
                 ( updatedBasked, cmd ) =
                     Basket.Update.update subMsg model.basket
             in
-                ( { model | basket = updatedBasked }, Cmd.none )
+                ( { model | basket = updatedBasked }, Cmd.map BasketMsg cmd )
 
         Pay ->
             ( model, Payment.Ports.callReservation (reservationEncoder model.basket) )
