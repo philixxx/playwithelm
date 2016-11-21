@@ -11,7 +11,7 @@ import Html.Events exposing (onClick)
 view : Basket -> Html Basket.Messages.Msg
 view basket =
     div []
-        [ div [ Html.Attributes.id "quotation" ] [ text (toString basket.quotation.quotation) ]
+        [ div [ Html.Attributes.id "quotation" ] [ text (toString ((toFloat basket.quotation.quotation/100))) ]
         , div [ class "p2" ]
             [ table []
                 [ thead []

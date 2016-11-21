@@ -15,7 +15,7 @@ fetchQuote quoteRequest =
 
 quoteRequestToBody : Basket -> Http.Body
 quoteRequestToBody quoteRequest =
-    Http.string """"{profile": "PARTICULIER", "exhibitorStatus": "RESIDENT", "spots": ["graphid123", "graphid456", "graphid789"]}"""
+    Http.string """{"profile": "PARTICULIER", "exhibitorStatus": "RESIDENT", "spots": ["graphid123", "graphid456", "graphid789"]}"""
 
 
 fetchAllUrl : String
