@@ -1,7 +1,7 @@
 module Basket.View exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (class, id)
 import Basket.Messages exposing (..)
 import Basket.Models exposing (..)
 import Set exposing (Set, toList)
@@ -10,16 +10,18 @@ import Html.Events exposing (onClick)
 
 view : Basket -> Html Basket.Messages.Msg
 view basket =
-    div [ class "p2" ]
-        [ text (toString (basket.quotation.quotation))
-        , table []
-            [ thead []
-                [ tr []
-                    [ th [] [ text "Id" ]
-                    , th [] [ text "Supprimer" ]
+    div []
+        [ div [ Html.Attributes.id "quotation" ] [ text (toString basket.quotation.quotation) ]
+        , div [ class "p2" ]
+            [ table []
+                [ thead []
+                    [ tr []
+                        [ th [] [ text "Id" ]
+                        , th [] [ text "Supprimer" ]
+                        ]
                     ]
+                , tbody [] (viewBasket (toList basket.spots))
                 ]
-            , tbody [] (viewBasket (toList basket.spots))
             ]
         ]
 
