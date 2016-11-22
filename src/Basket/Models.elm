@@ -6,6 +6,7 @@ import Set exposing (Set)
 type alias Basket =
     { spots : Set String
     , quotation : Quotation
+    , endpoint : String
     }
 
 

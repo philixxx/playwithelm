@@ -11,15 +11,10 @@ import Json.Encode as Json
 import Spot.Models exposing (..)
 
 
-fetchAll : Cmd Msg
-fetchAll =
+fetchAll : String -> Cmd Msg
+fetchAll fetchAllUrl =
     Http.get mapDecoder fetchAllUrl
         |> Task.perform FetchAllFail FetchAllDone
-
-
-fetchAllUrl : String
-fetchAllUrl =
-    "http://localhost:5000/map/"
 
 
 mapDecoder : Decode.Decoder EventMap

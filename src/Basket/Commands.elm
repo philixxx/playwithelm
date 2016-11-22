@@ -9,18 +9,13 @@ import Basket.Models exposing (..)
 
 fetchQuote : Basket -> Cmd Msg
 fetchQuote quoteRequest =
-    Http.post quoteDecoder fetchAllUrl (quoteRequestToBody quoteRequest)
+    Http.post quoteDecoder quoteRequest.endpoint (quoteRequestToBody quoteRequest)
         |> Task.perform FetchQuoteFail FetchQuoteDone
 
 
 quoteRequestToBody : Basket -> Http.Body
 quoteRequestToBody quoteRequest =
     Http.string """{"profile": "PARTICULIER", "exhibitorStatus": "RESIDENT", "spots": ["graphid123", "graphid456", "graphid789"]}"""
-
-
-fetchAllUrl : String
-fetchAllUrl =
-    "http://localhost:5000/pricequote/1"
 
 
 quoteDecoder : Decode.Decoder Quotation

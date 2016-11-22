@@ -5,16 +5,24 @@ import Basket.Models exposing (..)
 import Set exposing (empty)
 
 
+type alias Flags =
+    { eventid : String
+    , getmapprefix : String
+    , savemapprefix : String
+    , quoteprefix : String
+    }
+
+
 type alias Model =
     { eventMap : EventMap
     , basket : Basket
     }
 
 
-initialModel : Model
-initialModel =
+initialModel : Flags -> Model
+initialModel flags =
     { eventMap = new
-    , basket = { spots = empty, quotation = emptyQuotation }
+    , basket = { spots = empty, quotation = emptyQuotation, endpoint = flags.quoteprefix ++ flags.eventid }
     }
 
 

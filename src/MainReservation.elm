@@ -1,8 +1,8 @@
 module Main exposing (..)
 
-import Html.App
+import Html.App exposing (..)
 import Messages exposing (Msg(..))
-import Models exposing (Model, initialModel)
+import Models exposing (Model, initialModel, Flags)
 import Reservation.View exposing (view)
 import UpdateReservation exposing (update)
 import EventMap.Commands exposing (fetchAll)
@@ -10,9 +10,9 @@ import Leaflet.Ports
 import Basket.Messages
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( initialModel, Cmd.map EventMsg fetchAll )
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    ( initialModel flags, Cmd.map EventMsg (fetchAll (flags.getmapprefix ++ flags.eventid)) )
 
 
 subscriptions : Model -> Sub Msg
@@ -38,9 +38,9 @@ mapJsMsg ( action, id ) =
 -- MAIN
 
 
-main : Program Never
+main : Program Flags
 main =
-    Html.App.program
+    Html.App.programWithFlags
         { init = init
         , view = view
         , update = update

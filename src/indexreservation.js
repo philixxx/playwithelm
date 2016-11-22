@@ -6,7 +6,7 @@ var Elm = require('./MainReservation.elm');
 
 var mountNode = document.getElementById('main');
 
-var app = Elm.Main.embed(mountNode);
+var app = Elm.Main.embed(mountNode,  window.options);
 
 global.selectObserver = {select : function(id){
       app.ports.spotActionOn.send(["SELECTED",id]);
