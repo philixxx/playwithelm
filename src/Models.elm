@@ -8,7 +8,7 @@ import Set exposing (empty)
 type alias Flags =
     { getmapendpoint : String
     , savemapendpoint : String
-    , quoteenpoint : String
+    , quoteendpoint : String
     }
 
 
@@ -21,7 +21,7 @@ type alias Model =
 initialModel : Flags -> Model
 initialModel flags =
     { eventMap = new
-    , basket = { spots = empty, quotation = emptyQuotation, endpoint = flags.quoteenpoint }
+    , basket = { spots = empty, quotation = emptyQuotation, endpoint = flags.quoteendpoint }
     }
 
 
