@@ -12,7 +12,7 @@ import Basket.Messages
 
 init : Flags -> ( Model, Cmd Msg )
 init flags =
-    ( initialModel flags, Cmd.map EventMsg (fetchAll (flags.getmapprefix ++ flags.eventid)) )
+    ( initialModel flags, Cmd.map EventMsg (fetchAll (flags.getmapendpoint)) )
 
 
 subscriptions : Model -> Sub Msg
