@@ -17,6 +17,9 @@ port spotActionOn : (( String, String ) -> msg) -> Sub msg
 port spotPropertiesHasBeenUpdated : Value -> Cmd msg
 
 
+port updateSpotSelectStateTo : ( String, String ) -> Cmd msg
+
+
 
 {-
    JS Incoming

@@ -16,13 +16,25 @@ global.selectObserver = {select : function(id){
     }
 }
 
+app.ports.updateSpotSelectStateTo.subscribe(function(data){
+  var state = data [1];
+  var spotId = data[0];
+  if(state === "UNSELECTED")
+  {
+    selectManager.unselectById(spotId)
+  }
+  //Currently only unselect
+
+
+});
+
 app.ports.setView.subscribe(function(data){
     global.map.setView.apply(global.map, data);
 });
+
 app.ports.loadData.subscribe(function(data){
     dataManager.loadDataFromJson(data,global.drawnItems )
 });
-
 
 app.ports.spotPropertiesHasBeenUpdated.subscribe(function(data){
   global.dataManager.updateEmplacementProperties(data.Id,data)

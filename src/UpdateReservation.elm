@@ -61,7 +61,7 @@ update msg model =
                 ( updatedBasked, cmd ) =
                     Basket.Update.update subMsg model.basket
             in
-                ( { model | basket = updatedBasked }, Cmd.map QuoteMsg (fetchQuote model.quote.url updatedBasked model.currentProfile) )
+                ( { model | basket = updatedBasked }, Cmd.batch [ Cmd.map QuoteMsg (fetchQuote model.quote.url updatedBasked model.currentProfile), Cmd.map BasketMsg cmd ] )
 
         QuoteMsg subMsg ->
             let
