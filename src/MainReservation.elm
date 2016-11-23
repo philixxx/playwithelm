@@ -6,13 +6,21 @@ import Models exposing (Model, initialModel, Flags)
 import Reservation.View exposing (view)
 import UpdateReservation exposing (update)
 import EventMap.Commands exposing (fetchAll)
+import Profile.Commands exposing (fetchProfile)
 import Leaflet.Ports
 import Basket.Messages
 
 
 init : Flags -> ( Model, Cmd Msg )
 init flags =
-    ( initialModel flags, Cmd.map EventMsg (fetchAll (flags.getmapendpoint)) )
+    let
+        cmds =
+            Cmd.batch
+                [ Cmd.map EventMsg (fetchAll (flags.getmapendpoint))
+                , Cmd.map ProfileMsg (fetchProfile (flags.profileendpoint))
+                ]
+    in
+        ( initialModel flags, cmds )
 
 
 subscriptions : Model -> Sub Msg

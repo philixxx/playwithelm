@@ -5,10 +5,10 @@ import Basket.Models exposing (..)
 import Set exposing (toList)
 
 
-reservationEncoder : Basket -> Json.Value
-reservationEncoder basket =
+reservationEncoder : Basket -> String -> Json.Value
+reservationEncoder basket profile =
     Json.object <|
-        [ ( "profile", Json.string "PARTICULIER" )
+        [ ( "profile", Json.string profile )
         , ( "exhibitorStatus", Json.string "RESIDENT" )
         , ( "spots", List.map (Json.string) (toList basket.spots) |> Json.list )
         ]

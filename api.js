@@ -17,12 +17,17 @@ server.post('/api/pricequote', function (req, res) {
     res.json({quotation: 10})
 
 })
+server.get('/api/profiles', function (req, res) {
+
+    res.json({profiles : ["PARTICULIER","PRO"]})
+
+})
 server.use(jsonServer.bodyParser)
 server.use(function (req, res, next) {
 
   if (req.method === 'POST') {
     req.body.createdAt = Date.now()
-    
+
 
   }
   // Continue to JSON Server router
