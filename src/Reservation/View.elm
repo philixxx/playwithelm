@@ -36,7 +36,6 @@ viewMap model =
         [ div []
             [ Html.App.map ProfileUpdateMsg (Profile.View.view model.profile)
             , div [ Html.Attributes.id "quotation" ] [ text (toString ((toFloat model.quotation.quotation / 100))) ]
-            , button [ onClick <| LoadData, class "btn ink-reaction btn-raised btn-primary" ] [ text "Load Data for Reservation" ]
             , Html.App.map BasketMsg (Basket.View.view model.basket)
             , button [ Html.Attributes.id "prereserve-button", class "btn ink-reaction btn-raised btn-primary", onClick <| Pay ] [ text "Valider" ]
             ]

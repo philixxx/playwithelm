@@ -15,7 +15,6 @@ type Msg
     | ProfileUpdateMsg Profile.Messages.ProfileUpdatedMsg
     | SpotListMsg SpotList.Messages.Msg
     | SetLatLng LatLng
-    | LoadData
     | SpotttClickedMsg Leaflet.Messages.Msg
     | BasketMsg Basket.Messages.Msg
     | QuoteMsg Quote.Messages.Msg

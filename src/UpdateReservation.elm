@@ -22,7 +22,7 @@ update msg model =
                 ( updatedMap, cmd ) =
                     EventMap.Update.update subMsg model.eventMap
             in
-                ( { model | eventMap = updatedMap }, Cmd.map EventMsg cmd )
+                ( { model | eventMap = updatedMap }, Leaflet.Ports.loadData (encode updatedMap) )
 
         ProfileMsg subMsg ->
             let
@@ -50,11 +50,6 @@ update msg model =
             in
                 Debug.log (toString cmd)
                     ( { model | eventMap = newEventMap }, Cmd.map SpotListMsg cmd )
-
-        LoadData ->
-            ( model
-            , Leaflet.Ports.loadData (encode model.eventMap)
-            )
 
         BasketMsg subMsg ->
             let
