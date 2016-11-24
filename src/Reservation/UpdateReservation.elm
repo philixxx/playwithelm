@@ -1,7 +1,7 @@
-module UpdateReservation exposing (..)
+module Reservation.UpdateReservation exposing (..)
 
 import Messages exposing (Msg(..))
-import Models exposing (Model)
+import Reservation.Models exposing (Model)
 import SpotList.Update exposing (..)
 import EventMap.Update exposing (..)
 import Profile.Update exposing (..)

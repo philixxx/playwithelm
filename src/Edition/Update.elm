@@ -1,7 +1,7 @@
-module Update exposing (..)
+module Edition.Update exposing (..)
 
 import Messages exposing (Msg(..))
-import Models exposing (Model)
+import Edition.Models exposing (Model)
 import SpotList.Update exposing (..)
 import EventMap.Update exposing (..)
 import Leaflet.Ports
@@ -16,7 +16,7 @@ update msg model =
                 ( updatedMap, cmd ) =
                     EventMap.Update.update subMsg model.eventMap
             in
-                ( { model | eventMap = updatedMap }, Cmd.map EventMsg cmd )
+                ( { model | eventMap = updatedMap }, Leaflet.Ports.loadData (encode updatedMap) )
 
         SpotListMsg subMsg ->
             let
@@ -37,11 +37,6 @@ update msg model =
             in
                 Debug.log (toString cmd)
                     ( { model | eventMap = newEventMap }, Cmd.map SpotListMsg cmd )
-
-        LoadData ->
-            ( model
-            , Leaflet.Ports.loadData (encode model.eventMap)
-            )
 
         otherwise ->
             ( model, Cmd.none )

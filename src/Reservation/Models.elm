@@ -1,4 +1,4 @@
-module Models exposing (..)
+module Reservation.Models exposing (..)
 
 import EventMap.Models exposing (..)
 import Profile.Models exposing (..)

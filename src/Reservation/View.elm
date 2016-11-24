@@ -6,8 +6,7 @@ import Html.Events exposing (onClick)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Messages exposing (Msg(..))
-import Models exposing (..)
-import Models exposing (Model)
+import Reservation.Models exposing (..)
 import Basket.View
 import Profile.View
 

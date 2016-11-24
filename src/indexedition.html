@@ -7,14 +7,21 @@
     <link rel="stylesheet" href="./main.css" />
     <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script>
+    window.options = {
+       getmapendpoint : "http://localhost:5000/map/"
+      ,savemapendpoint : "http://localhost:5000/map/"
+    };
+    </script>
 </head>
 <body>
     <div>Edition View</div>
-    <div id="main"></div>
     <div id="map"></div>
+    <div id="main"></div>
+
 
     <script src="/appedition.js"></script>
-    <script src="http://localhost:3001/example/edition/js/bundle.js"></script>
+    <script src="http://localhost:3001/example/reservation/js/bundle.js"></script>
 
 </body>
 </html>

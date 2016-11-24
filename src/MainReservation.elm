@@ -2,9 +2,9 @@ module Main exposing (..)
 
 import Html.App exposing (..)
 import Messages exposing (Msg(..))
-import Models exposing (Model, initialModel, Flags)
+import Reservation.Models exposing (Model, initialModel, Flags)
 import Reservation.View exposing (view)
-import UpdateReservation exposing (update)
+import Reservation.UpdateReservation exposing (update)
 import EventMap.Commands exposing (fetchAll)
 import Profile.Commands exposing (fetchProfile)
 import Leaflet.Ports
