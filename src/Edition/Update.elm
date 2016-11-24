@@ -1,11 +1,12 @@
 module Edition.Update exposing (..)
 
-import Messages exposing (Msg(..))
+import Messages exposing (Msg(..), EditMessage(..))
 import Edition.Models exposing (Model)
 import SpotList.Update exposing (..)
 import EventMap.Update exposing (..)
-import Leaflet.Ports
+import Edition.Commands exposing (..)
 import EventMap.Commands exposing (encode)
+import Leaflet.Ports
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -35,8 +36,38 @@ update msg model =
                 newEventMap =
                     { eventMap | draw = newDraw }
             in
-                Debug.log (toString cmd)
-                    ( { model | eventMap = newEventMap }, Cmd.map SpotListMsg cmd )
+                ( { model | eventMap = newEventMap }, Cmd.map SpotListMsg cmd )
+
+        EditMsg subMsg ->
+            case subMsg of
+                SaveZoomLevel ->
+                    ( model, Cmd.batch [ Cmd.map EditMsg (saveZoomLevel model.savezoomlevelendpoint model.eventMap) ] )
+
+                ZoomLevelChanged level ->
+                    let
+                        map =
+                            model.eventMap
+
+                        newMap =
+                            ({ map | zoomLevel = level })
+                    in
+                        ( { model | eventMap = newMap }, Cmd.none )
+
+                SaveCenter ->
+                    ( model, Cmd.batch [ Cmd.map EditMsg (saveCenter model.savecenterendpoint model.eventMap) ] )
+
+                CenterChanged center ->
+                    let
+                        map =
+                            model.eventMap
+
+                        newMap =
+                            ({ map | center = center })
+                    in
+                        ( { model | eventMap = newMap }, Cmd.none )
+
+                otherwise ->
+                    ( model, Cmd.none )
 
         otherwise ->
             ( model, Cmd.none )

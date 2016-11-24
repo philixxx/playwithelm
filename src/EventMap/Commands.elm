@@ -27,9 +27,10 @@ mapDecoder =
 
 decodeCenter : Decode.Decoder Center
 decodeCenter =
-    Decode.object2 Center
-        ("lng" := Decode.float)
+    Decode.object2
+        Center
         ("lat" := Decode.float)
+        ("lng" := Decode.float)
 
 
 featureCollectionDecoder : Decode.Decoder FeatureCollection
@@ -49,7 +50,7 @@ encodeEventMap eventmap =
         feat =
             eventmap.draw.features
     in
-        [ ( "ZoomLevel", Json.int eventmap.zoomLevel )
+        [ ( "Zoomlevel", Json.int eventmap.zoomLevel )
         , ( "Center", encodeCenter eventmap.center |> Json.object )
         , ( "Draw", encodeFeatureCollection feat |> Json.object )
         ]

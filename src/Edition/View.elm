@@ -11,6 +11,7 @@ import EventMap.EventMapView exposing (..)
 import SpotList.View
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Messages exposing (Msg(..), EditMessage(..))
 
 
 view : Model -> Html Msg
@@ -35,7 +36,11 @@ viewMap eventMap =
     header
         [ class "header" ]
         [ div []
-            [ Html.App.map EventMsg (EventMap.EventMapView.view eventMap)
+            [ button [ onClick <| EditMsg (SaveZoomLevel) ] [ text "Sauvegarder ce niveau de zoom" ]
+            , button [ onClick <| EditMsg (SaveCenter) ] [ text "Sauvegarder ce centre de carte" ]
+            , Html.App.map
+                EventMsg
+                (EventMap.EventMapView.view eventMap)
             , Html.App.map SpotListMsg (SpotList.View.view eventMap.draw.features)
             ]
         ]

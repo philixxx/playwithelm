@@ -16,7 +16,7 @@ init flags =
     let
         cmds =
             Cmd.batch
-                [ Cmd.map EventMsg (fetchAll (flags.getmapendpoint))
+                [ Cmd.map EventMsg (fetchAll (flags.mapendpoint))
                 , Cmd.map ProfileMsg (fetchProfile (flags.profileendpoint))
                 ]
     in

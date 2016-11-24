@@ -27,3 +27,9 @@ port updateSpotSelectStateTo : ( String, String ) -> Cmd msg
 
 
 port spotttClicked : String -> Cmd msg
+
+
+port zoomLevelChanged : (Int -> msg) -> Sub msg
+
+
+port centerChanged : ({lat: Float, lng: Float} -> msg) -> Sub msg

@@ -4,17 +4,20 @@ import EventMap.Models exposing (..)
 
 
 type alias Flags =
-    { getmapendpoint : String
-    , savemapendpoint : String
+    { mapendpoint : String
     }
 
 
 type alias Model =
     { eventMap : EventMap
+    , savezoomlevelendpoint : String
+    , savecenterendpoint : String
     }
 
 
 initialModel : Flags -> Model
 initialModel flags =
     { eventMap = new
+    , savezoomlevelendpoint = flags.mapendpoint ++ "/savezoomlevel"
+    , savecenterendpoint = flags.mapendpoint ++ "/savecenter"
     }
