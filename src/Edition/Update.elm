@@ -69,5 +69,28 @@ update msg model =
                 otherwise ->
                     ( model, Cmd.none )
 
+        SpotAdded spot ->
+            let
+                eventMap =
+                    model.eventMap
+
+                draw =
+                    eventMap.draw
+
+                features =
+                    draw.features
+
+                newFeatures =
+                    spot :: features
+
+                newDraw =
+                    { draw | features = newFeatures }
+
+                newEm =
+                    { eventMap | draw = newDraw }
+            in
+                Debug.log ("SPot added " ++ spot.properties.id)
+                    ( { model | eventMap = newEm }, Cmd.none )
+
         otherwise ->
             ( model, Cmd.none )

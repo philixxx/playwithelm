@@ -9,6 +9,7 @@ import Quote.Messages
 import Leaflet.Types exposing (LatLng)
 import Http
 import EventMap.Models exposing (Center)
+import Spot.Models exposing (Spot)
 
 
 type Msg
@@ -22,6 +23,8 @@ type Msg
     | QuoteMsg Quote.Messages.Msg
     | Pay
     | EditMsg EditMessage
+    | SpotAdded Spot
+    | ErrorMsg String
 
 
 type EditMessage

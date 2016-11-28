@@ -101,8 +101,8 @@ convertStatusToString status =
 encodeProperties : SpotProperties -> List ( String, Json.Value )
 encodeProperties properties =
     [ ( "Id", Json.string properties.id )
-    , ( "SectorIndex", Json.int properties.sectorIndex )
-    , ( "SectorName", Json.string properties.sectorName )
+    , ( "SectorIndex", Json.int (Maybe.withDefault -1 properties.sectorIndex) )
+    , ( "SectorName", Json.string (Maybe.withDefault "" properties.sectorName) )
     , ( "Status", convertStatusToString properties.status )
     ]
 

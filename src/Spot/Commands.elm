@@ -41,3 +41,25 @@ statusDecoder status =
             Debug.log ("TODO implements status " ++ status)
                 Decode.succeed
                 UNKNOWN
+
+
+spotDecode : Decode.Decoder Spot.Models.Spot
+spotDecode =
+    Decode.object2 Spot
+        ("properties" := propertiesDecode)
+        ("geometry" := geometryDecode)
+
+
+geometryDecode : Decode.Decoder SpotGeometry
+geometryDecode =
+    Decode.object1 SpotGeometry
+        ("coordinates" := Decode.list (Decode.list (Decode.list Decode.float)))
+
+
+propertiesDecode : Decode.Decoder SpotProperties
+propertiesDecode =
+    Decode.object4 SpotProperties
+        ("Id" := Decode.string)
+        (Decode.maybe ("SectorName" := Decode.string))
+        (Decode.maybe ("SectorIndex" := Decode.int))
+        (Decode.oneOf [ ("Status" := Decode.string `Decode.andThen` statusDecoder), Decode.succeed UNKNOWN ])

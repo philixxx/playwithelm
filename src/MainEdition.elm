@@ -9,6 +9,9 @@ import EventMap.Commands exposing (fetchAll)
 import EventMap.Messages
 import Leaflet.Ports
 import EventMap.Models exposing (Center)
+import Spot.Models exposing (newS)
+import Spot.Commands exposing (spotDecode)
+import Json.Decode exposing (decodeValue)
 
 
 init : Flags -> ( Model, Cmd Msg )
@@ -27,6 +30,7 @@ subscriptions model =
     Sub.batch
         [ Leaflet.Ports.zoomLevelChanged zoomLevelChanged
         , Leaflet.Ports.centerChanged centerChanged
+        , Leaflet.Ports.spotAdded spotAdded
         ]
 
 
@@ -34,9 +38,25 @@ zoomLevelChanged : Int -> Msg
 zoomLevelChanged zoomLevel =
     EditMsg (Messages.ZoomLevelChanged zoomLevel)
 
+
 centerChanged : Center -> Msg
 centerChanged center =
     EditMsg (Messages.CenterChanged center)
+
+
+spotAdded spot =
+    let
+        s =
+            decodeValue spotDecode spot
+    in
+        case s of
+            Ok a ->
+                SpotAdded a
+
+            Err error ->
+                Debug.log ("Error when add" ++ error)
+                    ErrorMsg
+                    error
 
 
 

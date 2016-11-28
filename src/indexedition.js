@@ -7,7 +7,11 @@ var Elm = require('./MainEdition.elm');
 var mountNode = document.getElementById('main');
 
 var app = Elm.Main.embed(mountNode,  window.options);
+global.dataObserver = {newSpotAdded : function(spot){
+      app.ports.spotAdded.send(spot);
+  },
 
+}
 global.mapObserver = {zoomLevelChanged : function(level){
       app.ports.zoomLevelChanged.send(level);
   },
