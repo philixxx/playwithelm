@@ -7,10 +7,17 @@
     <link rel="stylesheet" href="./main.css" />
     <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css" />
+    <style>
+    .needAbsolut{
+        position : absolute;
+        color : white;
+        font-size: 9px;
+    }
+    </style>
     <script>
     window.options = {
-       getmapendpoint : "http://localhost:5000/map/"
-      ,savemapendpoint : "http://localhost:5000/map/"
+       mapendpoint : "http://localhost:5000/map"
     };
     </script>
 </head>
@@ -21,7 +28,7 @@
 
 
     <script src="/appedition.js"></script>
-    <script src="http://localhost:3001/example/reservation/js/bundle.js"></script>
+    <script src="http://localhost:3001/example/edit/js/bundle.js"></script>
 
 </body>
 </html>

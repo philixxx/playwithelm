@@ -17,6 +17,11 @@ server.post('/api/pricequote', function (req, res) {
     res.json({quotation: 10})
 
 })
+server.post('/map/savezoomlevel', function (req, res) {
+
+    res.json({rien: 10})
+
+})
 server.get('/api/profiles', function (req, res) {
 
     res.json({profiles : ["PARTICULIER","PRO"]})

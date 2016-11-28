@@ -8,8 +8,7 @@ import Set exposing (empty)
 
 
 type alias Flags =
-    { getmapendpoint : String
-    , savemapendpoint : String
+    { mapendpoint : String
     , quoteendpoint : String
     , profileendpoint : String
     }

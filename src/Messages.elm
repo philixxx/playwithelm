@@ -7,6 +7,8 @@ import Leaflet.Messages
 import Basket.Messages
 import Quote.Messages
 import Leaflet.Types exposing (LatLng)
+import Http
+import EventMap.Models exposing (Center)
 
 
 type Msg
@@ -19,3 +21,15 @@ type Msg
     | BasketMsg Basket.Messages.Msg
     | QuoteMsg Quote.Messages.Msg
     | Pay
+    | EditMsg EditMessage
+
+
+type EditMessage
+    = SaveZoomLevel
+    | SaveZoomLevelFail Http.Error
+    | SaveZoomLevelDone { result : String }
+    | ZoomLevelChanged Int
+    | SaveCenter
+    | SaveCenterFail Http.Error
+    | SaveCenterDone { result : String }
+    | CenterChanged Center

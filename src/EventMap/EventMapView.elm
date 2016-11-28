@@ -24,5 +24,5 @@ map : EventMap -> Html Msg
 map eventmap =
     div []
         [ div [ class "p2" ]
-            [ text (toString eventmap.zoomLevel) ]
+            [ text ("ZoomLevel " ++ toString eventmap.zoomLevel) ]
         ]
