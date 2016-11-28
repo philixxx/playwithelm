@@ -12,6 +12,7 @@ type alias Model =
     { eventMap : EventMap
     , savezoomlevelendpoint : String
     , savecenterendpoint : String
+    , addSpotendpoint : String
     }
 
 
@@ -20,4 +21,5 @@ initialModel flags =
     { eventMap = new
     , savezoomlevelendpoint = flags.mapendpoint ++ "/savezoomlevel"
     , savecenterendpoint = flags.mapendpoint ++ "/savecenter"
+    , addSpotendpoint = flags.mapendpoint ++ "/addSpot"
     }

@@ -22,6 +22,18 @@ server.post('/map/savezoomlevel', function (req, res) {
     res.json({rien: 10})
 
 })
+server.post('/map/savecenter', function (req, res) {
+
+    res.json({rien: 10})
+
+})
+server.post('/map/addSpot', function (req, res) {
+  console.log("addSpot" ,req)
+
+    res.json({rien: 10})
+
+})
+
 server.get('/api/profiles', function (req, res) {
 
     res.json({profiles : ["PARTICULIER","PRO"]})
