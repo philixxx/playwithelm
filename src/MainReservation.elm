@@ -8,7 +8,7 @@ import Reservation.UpdateReservation exposing (update)
 import EventMap.Commands exposing (fetchAll)
 import Profile.Commands exposing (fetchProfile)
 import Leaflet.Ports
-import Basket.Messages
+import Leaflet.Messages
 
 
 init : Flags -> ( Model, Cmd Msg )
@@ -35,11 +35,11 @@ mapJsMsg ( action, id ) =
     let
         msg =
             if action == "SELECTED" then
-                Basket.Messages.AddSpotToBasket
+                Leaflet.Messages.SpotSelected
             else
-                Basket.Messages.RemoveSpotFromBasket
+                Leaflet.Messages.SpotUnselected
     in
-        (BasketMsg (msg id))
+        (SpotttClickedMsg (msg id))
 
 
 

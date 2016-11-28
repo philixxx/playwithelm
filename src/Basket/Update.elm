@@ -2,26 +2,29 @@ module Basket.Update exposing (..)
 
 import Basket.Messages exposing (..)
 import Basket.Models exposing (..)
-import Set exposing (insert, remove)
 import Leaflet.Ports exposing (updateSpotSelectStateTo)
 
 
 update : Msg -> Basket -> ( Basket, Cmd Msg )
 update msg model =
     case msg of
-        AddSpotToBasket spotId ->
+        AddSpotToBasket spot ->
             let
                 newSpots =
-                    insert spotId model.spots
+                    spot :: model.spots
 
                 newModel =
                     { model | spots = newSpots }
             in
-                ( newModel, Leaflet.Ports.updateSpotSelectStateTo ( spotId, "SELECTED" ) )
+                ( newModel, Leaflet.Ports.updateSpotSelectStateTo ( spot.properties.id, "SELECTED" ) )
 
-        RemoveSpotFromBasket spotId ->
+        RemoveSpotFromBasket spot ->
             let
                 newSpots =
-                    remove spotId model.spots
+                    List.filter (\sp -> sp.properties.id /= spot.properties.id) model.spots
+
+                newModel =
+                    { model | spots = newSpots }
             in
-                ( { model | spots = newSpots }, Leaflet.Ports.updateSpotSelectStateTo ( spotId, "UNSELECTED" ) )
+                Debug.log ("BLA")
+                    ( newModel, Leaflet.Ports.updateSpotSelectStateTo ( spot.properties.id, "UNSELECTED" ) )

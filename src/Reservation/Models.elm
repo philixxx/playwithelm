@@ -4,7 +4,6 @@ import EventMap.Models exposing (..)
 import Profile.Models exposing (..)
 import Basket.Models exposing (..)
 import Quote.Models exposing (..)
-import Set exposing (empty)
 
 
 type alias Flags =
@@ -27,7 +26,7 @@ type alias Model =
 initialModel : Flags -> Model
 initialModel flags =
     { eventMap = new
-    , basket = { spots = empty }
+    , basket = { spots = [] }
     , profile = { profiles = [] }
     , currentProfile = "None"
     , quote = { url = flags.quoteendpoint }

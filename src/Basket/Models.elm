@@ -1,8 +1,8 @@
 module Basket.Models exposing (..)
 
-import Set exposing (Set)
+import Spot.Models exposing (Spot)
 
 
 type alias Basket =
-    { spots : Set String
+    { spots : List Spot
     }

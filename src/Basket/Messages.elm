@@ -1,6 +1,8 @@
 module Basket.Messages exposing (..)
 
+import Spot.Models exposing (Spot)
+
 
 type Msg
-    = AddSpotToBasket String
-    | RemoveSpotFromBasket String
+    = AddSpotToBasket Spot
+    | RemoveSpotFromBasket Spot

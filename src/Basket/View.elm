@@ -4,8 +4,8 @@ import Html exposing (..)
 import Html.Attributes exposing (class, id)
 import Basket.Messages exposing (..)
 import Basket.Models exposing (..)
-import Set exposing (Set, toList)
 import Html.Events exposing (onClick)
+import Spot.Models exposing (Spot)
 
 
 view : Basket -> Html Basket.Messages.Msg
@@ -19,20 +19,20 @@ view basket =
                         , th [] [ text "Supprimer" ]
                         ]
                     ]
-                , tbody [] (viewBasket (toList basket.spots))
+                , tbody [] (viewBasket (basket.spots))
                 ]
             ]
         ]
 
 
-viewBasket : List String -> List (Html Basket.Messages.Msg)
+viewBasket : List Spot -> List (Html Basket.Messages.Msg)
 viewBasket spots =
     List.map viewBasketLine spots
 
 
-viewBasketLine : String -> Html Basket.Messages.Msg
-viewBasketLine spotId =
+viewBasketLine : Spot -> Html Basket.Messages.Msg
+viewBasketLine spot =
     tr []
-        [ td [] [ text (toString spotId) ]
-        , button [ onClick (RemoveSpotFromBasket spotId), class "toto" ] [ text ("Supprimer") ]
+        [ td [] [ text (toString spot.properties.id) ]
+        , button [ onClick (RemoveSpotFromBasket spot), class "toto" ] [ text ("Supprimer") ]
         ]

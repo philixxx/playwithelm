@@ -4,4 +4,5 @@ import Spot.Models exposing (SpotId)
 
 
 type Msg
-    = SpotttClicked SpotId
+    = SpotSelected SpotId
+    | SpotUnselected SpotId

@@ -1,6 +1,7 @@
 module Reservation.UpdateReservation exposing (..)
 
 import Messages exposing (Msg(..))
+import Leaflet.Messages
 import Reservation.Models exposing (Model)
 import SpotList.Update exposing (..)
 import EventMap.Update exposing (..)
@@ -12,6 +13,22 @@ import Payment.Ports
 import EventMap.Commands exposing (encode)
 import Payment.Commands exposing (reservationEncoder)
 import Quote.Commands exposing (fetchQuote)
+import Spot.Models
+import Basket.Messages
+import Basket.Models
+
+
+find : (a -> Bool) -> List a -> Maybe a
+find predicate list =
+    case list of
+        [] ->
+            Nothing
+
+        first :: rest ->
+            if predicate first then
+                Just first
+            else
+                find predicate rest
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -51,6 +68,14 @@ update msg model =
                 Debug.log (toString cmd)
                     ( { model | eventMap = newEventMap }, Cmd.map SpotListMsg cmd )
 
+        SpotttClickedMsg subMsg ->
+            case subMsg of
+                Leaflet.Messages.SpotSelected spotId ->
+                    callBasketUpdateForSpot Basket.Messages.AddSpotToBasket spotId model
+
+                Leaflet.Messages.SpotUnselected spotId ->
+                    callBasketUpdateForSpot Basket.Messages.RemoveSpotFromBasket spotId model
+
         BasketMsg subMsg ->
             let
                 ( updatedBasked, cmd ) =
@@ -77,3 +102,23 @@ update msg model =
 
         otherwise ->
             ( model, Cmd.none )
+
+
+callBasketUpdateForSpot smg spotId model =
+    let
+        ( updatedBasked, cmd ) =
+            case
+                (find
+                    (\spot ->
+                        spot.properties.id == spotId
+                    )
+                    model.eventMap.draw.features
+                )
+            of
+                Just a ->
+                    Basket.Update.update (smg a) model.basket
+
+                Nothing ->
+                    ( model.basket, Cmd.none )
+    in
+        ( { model | basket = updatedBasked }, Cmd.batch [ Cmd.map QuoteMsg (fetchQuote model.quote.url updatedBasked model.currentProfile), Cmd.map BasketMsg cmd ] )
