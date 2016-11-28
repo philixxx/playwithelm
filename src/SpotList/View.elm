@@ -6,7 +6,9 @@ import Html.Attributes exposing (class)
 import SpotList.Messages exposing (..)
 import SpotList.Models exposing (..)
 import Spot.View
-import Spot.Models
+import Spot.Models exposing (..)
+import Html.Events exposing (onInput, onClick)
+import Messages exposing (EditMessage(..))
 
 
 view : SpotList -> Html SpotList.Messages.Msg
@@ -15,7 +17,6 @@ view spots =
         [ nav spots
         , list spots
         ]
-
 
 nav : SpotList -> Html SpotList.Messages.Msg
 nav spots =

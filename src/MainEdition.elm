@@ -7,6 +7,7 @@ import Edition.View exposing (view)
 import Edition.Update exposing (update)
 import EventMap.Commands exposing (fetchAll)
 import Leaflet.Ports
+import EventMap.Models exposing (Center)
 import Leaflet.Messages
 import EventMap.Models exposing (Center)
 import Spot.Commands exposing (spotDecode)
@@ -29,6 +30,7 @@ subscriptions model =
     Sub.batch
         [ Leaflet.Ports.zoomLevelChanged zoomLevelChanged
         , Leaflet.Ports.centerChanged centerChanged
+        , Leaflet.Ports.spotActionOn mapJsMsg
         , Leaflet.Ports.spotAdded spotAdded
         , Leaflet.Ports.spotRemoved spotRemoved
         ]
@@ -42,6 +44,18 @@ zoomLevelChanged zoomLevel =
 centerChanged : Center -> Msg
 centerChanged center =
     EditMsg (Messages.CenterChanged center)
+
+
+mapJsMsg : ( String, String ) -> Msg
+mapJsMsg ( action, id ) =
+    let
+        msg =
+            if action == "SELECTED" then
+                Leaflet.Messages.SpotSelected
+            else
+                Leaflet.Messages.SpotUnselected
+    in
+        (SpotttClickedMsg (msg id))
 
 
 spotAdded spot =

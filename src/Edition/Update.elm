@@ -8,6 +8,22 @@ import Edition.Commands exposing (..)
 import EventMap.Commands exposing (encode)
 import Leaflet.Ports
 import Leaflet.Messages
+import Sector.Messages
+import Sector.Update
+import Sector.Update exposing (..)
+
+
+find : (a -> Bool) -> List a -> Maybe a
+find predicate list =
+    case list of
+        [] ->
+            Nothing
+
+        first :: rest ->
+            if predicate first then
+                Just first
+            else
+                find predicate rest
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -19,6 +35,24 @@ update msg model =
                     EventMap.Update.update subMsg model.eventMap
             in
                 ( { model | eventMap = updatedMap }, Leaflet.Ports.loadData (encode updatedMap) )
+
+        SectorMsg subMsg ->
+            let
+                ( updatedSector, cmd ) =
+                    Sector.Update.update subMsg model.sector
+            in
+                ( { model | sector = updatedSector }, Cmd.map SectorMsg cmd )
+
+        SpotttClickedMsg subMsg ->
+            case subMsg of
+                Leaflet.Messages.SpotSelected spotId ->
+                    callSectorUpdateForSpot Sector.Messages.AddSpotToSector spotId model
+
+                Leaflet.Messages.SpotUnselected spotId ->
+                    callSectorUpdateForSpot Sector.Messages.RemoveSpotFromSector spotId model
+
+                otherwise ->
+                    ( model, Cmd.none )
 
         SpotListMsg subMsg ->
             let
@@ -128,3 +162,23 @@ update msg model =
 
         otherwise ->
             ( model, Cmd.none )
+
+
+callSectorUpdateForSpot smg spotId model =
+    let
+        ( updatedSector, cmd ) =
+            case
+                (find
+                    (\spot ->
+                        spot.properties.id == spotId
+                    )
+                    model.eventMap.draw.features
+                )
+            of
+                Just a ->
+                    Sector.Update.update (smg a) model.sector
+
+                Nothing ->
+                    ( model.sector, Cmd.none )
+    in
+        ( { model | sector = updatedSector }, Cmd.map SectorMsg cmd )
