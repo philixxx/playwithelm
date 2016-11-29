@@ -92,5 +92,34 @@ update msg model =
                 Debug.log ("SPot added " ++ spot.properties.id)
                     ( { model | eventMap = newEm }, Cmd.none )
 
+        SpotRemoved spotId ->
+            let
+                eventMap =
+                    model.eventMap
+
+                draw =
+                    eventMap.draw
+
+                features =
+                    draw.features
+
+                newFeatures =
+                    List.filter
+                        (\spot ->
+                            if (not (spot.properties.id == spotId)) then
+                                True
+                            else
+                                False
+                        )
+                        features
+
+                newDraw =
+                    { draw | features = newFeatures }
+
+                newEm =
+                    { eventMap | draw = newDraw }
+            in
+                ( { model | eventMap = newEm }, Cmd.none )
+
         otherwise ->
             ( model, Cmd.none )

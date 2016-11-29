@@ -24,6 +24,7 @@ type Msg
     | Pay
     | EditMsg EditMessage
     | SpotAdded Spot
+    | SpotRemoved String
     | ErrorMsg String
 
 

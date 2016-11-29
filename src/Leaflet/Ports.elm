@@ -36,3 +36,6 @@ port centerChanged : ({ lat : Float, lng : Float } -> msg) -> Sub msg
 
 
 port spotAdded : (Value -> msg) -> Sub msg
+
+
+port spotRemoved : (String -> msg) -> Sub msg

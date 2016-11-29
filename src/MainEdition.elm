@@ -31,6 +31,7 @@ subscriptions model =
         [ Leaflet.Ports.zoomLevelChanged zoomLevelChanged
         , Leaflet.Ports.centerChanged centerChanged
         , Leaflet.Ports.spotAdded spotAdded
+        , Leaflet.Ports.spotRemoved spotRemoved
         ]
 
 
@@ -57,6 +58,10 @@ spotAdded spot =
                 Debug.log ("Error when add" ++ error)
                     ErrorMsg
                     error
+
+
+spotRemoved spotId =
+    SpotRemoved spotId
 
 
 
