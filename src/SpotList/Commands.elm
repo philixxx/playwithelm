@@ -2,7 +2,7 @@ module SpotList.Commands exposing (..)
 
 import Json.Decode as Decode exposing ((:=))
 import Spot.Models exposing (..)
-import Spot.Commands exposing (..)
+import Spot.Commands exposing (spotDecode)
 
 
 --
@@ -25,25 +25,3 @@ import Spot.Commands exposing (..)
 spotsDecoder : Decode.Decoder (List Spot.Models.Spot)
 spotsDecoder =
     Decode.list spotDecode
-
-
-spotDecode : Decode.Decoder Spot.Models.Spot
-spotDecode =
-    Decode.object2 Spot
-        ("properties" := propertiesDecode)
-        ("geometry" := geometryDecode)
-
-
-geometryDecode : Decode.Decoder SpotGeometry
-geometryDecode =
-    Decode.object1 SpotGeometry
-        ("coordinates" := Decode.list (Decode.list (Decode.list Decode.float)))
-
-
-propertiesDecode : Decode.Decoder SpotProperties
-propertiesDecode =
-    Decode.object4 SpotProperties
-        ("Id" := Decode.string)
-        ("SectorName" := Decode.string)
-        ("SectorIndex" := Decode.int)
-        ("Status" := Decode.string `Decode.andThen` statusDecoder)
