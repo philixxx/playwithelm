@@ -8,7 +8,7 @@ import EventMap.Messages exposing (Msg(..))
 import SpotList.Models exposing (..)
 import SpotList.Commands exposing (..)
 import Json.Encode as Json
-import Spot.Models exposing (..)
+import Spot.Commands exposing (..)
 
 
 fetchAll : String -> Cmd Msg
@@ -68,47 +68,3 @@ encodeFeatureCollection spotList =
     [ ( "type", Json.string "FeatureCollection" )
     , ( "features", List.map (encodeFeature >> Json.object) spotList |> Json.list )
     ]
-
-
-encodeFeature : Spot -> List ( String, Json.Value )
-encodeFeature { properties, geometry } =
-    [ ( "type", Json.string "Feature" )
-    , ( "geometry", encodeGeometry geometry |> Json.object )
-    , ( "properties", encodeProperties properties |> Json.object )
-    ]
-
-
-encodeGeometry : SpotGeometry -> List ( String, Json.Value )
-encodeGeometry { coordinates } =
-    [ ( "type", Json.string "Polygon" )
-    , ( "coordinates", coordinates |> List.map (List.map encodePosition >> Json.list) |> Json.list )
-    ]
-
-
-convertStatusToString : SpotStatus -> Json.Value
-convertStatusToString status =
-    case status of
-        AVAILABLE ->
-            Json.string "AVAILABLE"
-
-        BLOCKED ->
-            Json.string "BLOCKED"
-
-        UNKNOWN ->
-            Json.string "UNKNOWN"
-
-
-encodeProperties : SpotProperties -> List ( String, Json.Value )
-encodeProperties properties =
-    [ ( "Id", Json.string properties.id )
-    , ( "SectorIndex", Json.int (Maybe.withDefault -1 properties.sectorIndex) )
-    , ( "SectorName", Json.string (Maybe.withDefault "" properties.sectorName) )
-    , ( "Status", convertStatusToString properties.status )
-    ]
-
-
-encodePosition : List Float -> Json.Value
-encodePosition position =
-    position
-        |> List.map Json.float
-        |> Json.list

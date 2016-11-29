@@ -1,15 +1,14 @@
 module Main exposing (..)
 
 import Html.App
-import Messages exposing (Msg(..))
+import Messages exposing (Msg(..), EditMessage(..))
 import Edition.Models exposing (Model, initialModel, Flags)
 import Edition.View exposing (view)
 import Edition.Update exposing (update)
 import EventMap.Commands exposing (fetchAll)
-import EventMap.Messages
 import Leaflet.Ports
+import Leaflet.Messages
 import EventMap.Models exposing (Center)
-import Spot.Models exposing (newS)
 import Spot.Commands exposing (spotDecode)
 import Json.Decode exposing (decodeValue)
 
@@ -52,7 +51,7 @@ spotAdded spot =
     in
         case s of
             Ok a ->
-                SpotAdded a
+                EditMsg (LeafletSpotMsg (Leaflet.Messages.SpotAdded a))
 
             Err error ->
                 Debug.log ("Error when add" ++ error)
@@ -61,7 +60,7 @@ spotAdded spot =
 
 
 spotRemoved spotId =
-    SpotRemoved spotId
+    EditMsg (LeafletSpotMsg (Leaflet.Messages.SpotRemoved spotId))
 
 
 

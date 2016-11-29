@@ -23,8 +23,6 @@ type Msg
     | QuoteMsg Quote.Messages.Msg
     | Pay
     | EditMsg EditMessage
-    | SpotAdded Spot
-    | SpotRemoved String
     | ErrorMsg String
 
 
@@ -37,3 +35,6 @@ type EditMessage
     | SaveCenterFail Http.Error
     | SaveCenterDone { result : String }
     | CenterChanged Center
+    | LeafletSpotMsg Leaflet.Messages.Msg
+    | AddSpotFailed Http.Error
+    | AddSpotDone { result : String }
