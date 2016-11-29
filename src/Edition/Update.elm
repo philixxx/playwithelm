@@ -89,7 +89,7 @@ update msg model =
                                 newEm =
                                     { eventMap | draw = newDraw }
                             in
-                                ( { model | eventMap = newEm }, Cmd.none )
+                                ( { model | eventMap = newEm }, Cmd.map EditMsg (Edition.Commands.addSpot model.addSpotendpoint (spot)) )
 
                         Leaflet.Messages.SpotRemoved spotId ->
                             let
