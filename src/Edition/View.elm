@@ -58,7 +58,7 @@ viewDrawSelectors =
     span []
         [ h4 [] [ text "Options de dessin"]
         , span [] [ text "Diviser en N emplacements"]
-        , select [ id "nb-emplacements-form" ] ( List.map countOption [1..100] )
+        , select [ id "nbemplacements-form" ] ( List.map countOption [1..100] )
         , span [] [ text " Profondeur des emplacements (mètres)"]
         , select [ id "width-form" ] ( List.map widthOption [1..10] )
         ]
