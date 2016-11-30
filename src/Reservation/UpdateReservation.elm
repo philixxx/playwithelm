@@ -76,6 +76,9 @@ update msg model =
                 Leaflet.Messages.SpotUnselected spotId ->
                     callBasketUpdateForSpot Basket.Messages.RemoveSpotFromBasket spotId model
 
+                otherwise ->
+                    ( model, Cmd.none )
+
         BasketMsg subMsg ->
             let
                 ( updatedBasked, cmd ) =
