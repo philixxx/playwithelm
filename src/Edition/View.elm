@@ -48,10 +48,10 @@ viewMap eventMap =
 
 
 countOption count =
-  option [value (toString count) ] [ text (toString count)]
+  option [] [ text (toString count)]
 
 widthOption width =
-  option [value (toString width) ] [ text (toString width)]
+  option [] [ text (toString width)]
 
 viewDrawSelectors : Html Msg
 viewDrawSelectors =
