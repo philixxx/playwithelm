@@ -27,6 +27,7 @@ page model =
         [ section
             [ class "klapp" ]
             [ viewMap model.eventMap
+            , viewDrawSelectors
             , Html.App.map SectorMsg (Sector.View.view model.sector.spots)
             ]
         ]
@@ -43,4 +44,21 @@ viewMap eventMap =
                 EventMsg
                 (EventMap.EventMapView.view eventMap)
             ]
+        ]
+
+
+countOption count =
+  option [value (toString count) ] [ text (toString count)]
+
+widthOption width =
+  option [value (toString width) ] [ text (toString width)]
+
+viewDrawSelectors : Html Msg
+viewDrawSelectors =
+    span []
+        [ h4 [] [ text "Options de dessin"]
+        , span [] [ text "Diviser en N emplacements"]
+        , select [ id "nb-emplacements-form" ] ( List.map countOption [1..100] )
+        , span [] [ text " Profondeur des emplacements (mètres)"]
+        , select [ id "width-form" ] ( List.map widthOption [1..10] )
         ]
