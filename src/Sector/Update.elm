@@ -4,8 +4,22 @@ import Sector.Models exposing (Sector)
 import Spot.Models exposing (Spot)
 import Sector.Commands exposing (..)
 import Sector.Messages exposing (Msg(..))
-import Leaflet.Ports exposing (updateSpotSelectStateTo)
+import Leaflet.Ports exposing (updateSpotSelectStateTo, spotPropertiesHasBeenUpdated)
 import Spot.Update exposing (..)
+import Http exposing (Error(..))
+import Json.Encode as Json
+import Spot.Messages
+
+
+getSpotListFromTuples listTuples =
+    List.map
+      (\(spot, cmd) ->
+          spot) listTuples
+
+getCmdListFromTuples listTuples =
+    List.map
+      (\(spot, cmd) ->
+          Cmd.map (SpotMsg spot) cmd) listTuples
 
 
 update : Msg -> Sector -> ( Sector, Cmd Msg )
@@ -13,18 +27,46 @@ update message model =
     case message of
         SectorNameChangeAll sectorName ->
             let
-                updatedSpots =
-                    changeSectorName model.spots sectorName
+                listTuples =
+                    List.map
+                      (\s ->
+                          Spot.Update.update (Spot.Messages.SectorNameChange sectorName) s
+                      ) model.spots
+
+                spotList = getSpotListFromTuples listTuples
+                cmdList = getCmdListFromTuples listTuples
             in
-                ( { model | spots = updatedSpots }, Cmd.none )
+                ( { model | spots = spotList } , Cmd.batch (cmdList) )
 
         SaveSpotsSector ->
             ( model, (saveSpotsSector model.savesectorendpoint model.spots) )
 
+        SaveSpotsSectorDone response ->
+            ( model, Cmd.none )
+
+        SaveSpotsSectorFail error ->
+            case error of
+                UnexpectedPayload errMsg ->
+                    Debug.log ("In Error UnexpectedPayload" ++ errMsg)
+                    ( model, Cmd.none )
+
+                NetworkError ->
+                    Debug.log ("In Error NetworkError")
+                    ( model, Cmd.none )
+
+                BadResponse code reason ->
+                    Debug.log ("In Error code " ++ toString code ++ " Reason  :" ++ reason)
+                    ( model, Cmd.none )
+
+                Timeout ->
+                    Debug.log ("In Error Timeout")
+                    ( model, Cmd.none )
+
+
         AddSpotToSector spot ->
             let
                 newSpots =
-                    spot :: model.spots
+                     model.spots ++ [spot]
 
                 newModel =
                     { model | spots = newSpots }
@@ -57,22 +99,3 @@ update message model =
                             )
             in
                 ( { model | spots = updatedSpots }, Cmd.map (SpotMsg spot) cmd )
-
-        otherwise ->
-            ( model, Cmd.none )
-
-
-changeSectorName : List Spot -> String -> List Spot
-changeSectorName spots sectName =
-    List.map
-        (\spot ->
-            let
-                props =
-                    spot.properties
-
-                newProps =
-                    { props | sectorName = Just sectName }
-            in
-                { spot | properties = newProps }
-        )
-        spots

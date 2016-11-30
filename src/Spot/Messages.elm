@@ -10,3 +10,4 @@ type Msg
     | BlockFail Http.Error
     | Unblock
     | SectorIndexChange String
+    | SectorNameChange String

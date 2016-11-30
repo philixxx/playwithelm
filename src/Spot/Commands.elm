@@ -102,7 +102,6 @@ encodeProperties properties =
     , ( "Status", convertStatusToString properties.status )
     ]
 
-
 encodePosition : List Float -> Json.Value
 encodePosition position =
     position

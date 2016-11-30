@@ -6,6 +6,7 @@ import Json.Decode as Decode exposing ((:=))
 import Json.Encode as Json
 import Sector.Messages exposing (Msg(..))
 import Spot.Models exposing (Spot)
+import Spot.Commands exposing (..)
 
 
 type alias Rien =
@@ -20,7 +21,7 @@ saveSpotsSector endpoint spots =
 
 saveSpotSector : String -> Spot -> Cmd Msg
 saveSpotSector endpoint spot =
-  Http.post decodeNothing endpoint (Http.string ("bla"))
+  Http.post decodeNothing endpoint (Http.string (Json.encode 0 (Spot.Commands.encodeProperties spot.properties |> Json.object)))
         |> Task.perform SaveSpotsSectorFail SaveSpotsSectorDone
 
 

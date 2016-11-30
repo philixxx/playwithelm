@@ -22,7 +22,7 @@ global.mapObserver = {zoomLevelChanged : function(level){
   centerChanged : function(lat,lng){
        app.ports.centerChanged.send({"lat": lat,"lng": lng});
   }
-}       
+}
 
 
 global.selectObserver = {select : function(id){
@@ -53,7 +53,9 @@ app.ports.loadData.subscribe(function(data){
     dataManager.loadDataFromJson(data,global.drawnItems )
 });
 
+
 app.ports.spotPropertiesHasBeenUpdated.subscribe(function(data){
+  console.log("Try to update " + data.Id + " with sectorIndex " + data.SectorIndex)
   global.dataManager.updateEmplacementProperties(data.Id,data)
 
 });
