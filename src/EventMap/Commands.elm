@@ -20,8 +20,8 @@ fetchAll fetchAllUrl =
 mapDecoder : Decode.Decoder EventMap
 mapDecoder =
     Decode.object3 EventMap
-        ("Zoomlevel" := Decode.oneOf [ Decode.int, Decode.null 10 ])
-        ("Center" := decodeCenter)
+        ("Zoomlevel" := Decode.oneOf [ Decode.int, Decode.null 6 ])
+        ("Center" := Decode.oneOf [ decodeCenter, Decode.null { lat = 46.807579571992385, lng = 6.1083984375 } ])
         ("Draw" := featureCollectionDecoder)
 
 
