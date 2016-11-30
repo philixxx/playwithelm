@@ -2,7 +2,7 @@ module Spot.View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onInput)
 import Spot.Models exposing (..)
 import Spot.Messages exposing (..)
 
@@ -28,6 +28,14 @@ view spot =
         , td [] [ text (statusToString spot.properties.status) ]
         ]
 
+viewedit : Spot -> Html Msg
+viewedit spot =
+    tr []
+        [ td [] [ text (toString spot.properties.id) ]
+        , td [] [ text (toString spot.properties.sectorName) ]
+        , td [] [ text (toString spot.properties.sectorIndex) ]
+        , input [ onInput SectorIndexChange ] []
+        ]
 
 statusToString : SpotStatus -> String
 statusToString status =

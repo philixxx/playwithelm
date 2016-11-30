@@ -3,7 +3,7 @@ module SpotList.Update exposing (..)
 import SpotList.Messages exposing (..)
 import SpotList.Models exposing (..)
 import Spot.Update exposing (..)
-import Spot.Models
+import Spot.Models exposing (Spot)
 import Spot.Messages
 
 

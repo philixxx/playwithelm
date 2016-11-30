@@ -1,6 +1,7 @@
 module Edition.Models exposing (..)
 
 import EventMap.Models exposing (..)
+import Sector.Models exposing (..)
 
 
 type alias Flags =
@@ -10,6 +11,7 @@ type alias Flags =
 
 type alias Model =
     { eventMap : EventMap
+    , sector : Sector
     , savezoomlevelendpoint : String
     , savecenterendpoint : String
     , addSpotendpoint : String
@@ -20,6 +22,7 @@ type alias Model =
 initialModel : Flags -> Model
 initialModel flags =
     { eventMap = new
+    , sector = {spots = [], savesectorendpoint = flags.mapendpoint ++ "/savesector"}
     , savezoomlevelendpoint = flags.mapendpoint ++ "/savezoomlevel"
     , savecenterendpoint = flags.mapendpoint ++ "/savecenter"
     , addSpotendpoint = flags.mapendpoint ++ "/addSpot"

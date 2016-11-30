@@ -9,3 +9,5 @@ type Msg
     | BlockDone BlockResponse
     | BlockFail Http.Error
     | Unblock
+    | SectorIndexChange String
+    | SectorNameChange String

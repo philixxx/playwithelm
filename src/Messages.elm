@@ -6,6 +6,8 @@ import SpotList.Messages
 import Leaflet.Messages
 import Basket.Messages
 import Quote.Messages
+import Sector.Messages
+import Spot.Messages
 import Leaflet.Types exposing (LatLng)
 import Http
 import EventMap.Models exposing (Center)
@@ -24,6 +26,8 @@ type Msg
     | Pay
     | EditMsg EditMessage
     | ErrorMsg String
+    | SectorMsg Sector.Messages.Msg
+    | SpotMsg Spot.Messages.Msg
 
 
 type EditMessage

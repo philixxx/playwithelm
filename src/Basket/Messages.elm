@@ -1,6 +1,6 @@
 module Basket.Messages exposing (..)
 
-import Spot.Models exposing (Spot)
+import Spot.Models exposing (..)
 
 
 type Msg

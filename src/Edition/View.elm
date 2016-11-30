@@ -8,7 +8,7 @@ import Edition.Models exposing (..)
 import EventMap.EventMapView
 import EventMap.Models exposing (EventMap)
 import EventMap.EventMapView exposing (..)
-import SpotList.View
+import Sector.View
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Messages exposing (Msg(..), EditMessage(..))
@@ -27,6 +27,7 @@ page model =
         [ section
             [ class "klapp" ]
             [ viewMap model.eventMap
+            , Html.App.map SectorMsg (Sector.View.view model.sector.spots)
             ]
         ]
 
@@ -41,6 +42,5 @@ viewMap eventMap =
             , Html.App.map
                 EventMsg
                 (EventMap.EventMapView.view eventMap)
-            , Html.App.map SpotListMsg (SpotList.View.view eventMap.draw.features)
             ]
         ]

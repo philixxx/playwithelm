@@ -6,6 +6,7 @@ import Spot.Commands exposing (block, encodeProperties)
 import Http exposing (Error(..))
 import Leaflet.Ports
 import Json.Encode as Json
+import String exposing (..)
 
 
 changeStatus : Spot -> SpotStatus -> Spot
@@ -57,3 +58,43 @@ update message spot =
                     changeStatus spot AVAILABLE
             in
                 ( newSpot, Leaflet.Ports.spotPropertiesHasBeenUpdated ((encodeProperties newSpot.properties) |> Json.object) )
+
+        SectorIndexChange sectorIndex ->
+            let
+                updatedSpot =
+                    changeSectorIndex spot sectorIndex
+            in
+                ( updatedSpot, Leaflet.Ports.spotPropertiesHasBeenUpdated ((encodeProperties updatedSpot.properties) |> Json.object) )
+
+        SectorNameChange sectorName ->
+            let
+                updatedSpot =
+                    changeSectorName spot sectorName
+            in
+                Debug.log("hello !!! ca marche")
+                ( updatedSpot, Leaflet.Ports.spotPropertiesHasBeenUpdated ((encodeProperties updatedSpot.properties) |> Json.object) )
+
+
+changeSectorIndex : Spot -> String -> Spot
+changeSectorIndex spot sectIndex =
+    let
+        props =
+            spot.properties
+
+        newProps =
+            { props | sectorIndex = (String.toInt sectIndex |> Result.toMaybe) }
+    in
+        { spot | properties = newProps }
+
+
+
+changeSectorName : Spot -> String -> Spot
+changeSectorName spot sectName =
+    let
+        props =
+            spot.properties
+
+        newProps =
+            { props | sectorName = Just sectName }
+    in
+        { spot | properties = newProps }
