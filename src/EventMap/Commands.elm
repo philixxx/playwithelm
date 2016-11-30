@@ -29,8 +29,8 @@ decodeCenter : Decode.Decoder Center
 decodeCenter =
     Decode.object2
         Center
-        ("lat" := Decode.float)
-        ("lng" := Decode.float)
+        ("lat" := Decode.oneOf [ Decode.float, Decode.null 46.807579571992385 ])
+        ("lng" := Decode.oneOf [ Decode.float, Decode.null 6.1083984375 ])
 
 
 featureCollectionDecoder : Decode.Decoder FeatureCollection
