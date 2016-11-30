@@ -33,7 +33,12 @@ server.post('/map/addSpot', function (req, res) {
     res.json({rien: 10})
 
 })
+server.post('/map/removeSpot', function (req, res) {
+  console.log("removeSpot" ,req)
 
+    res.json({rien: 10})
+
+})
 server.get('/api/profiles', function (req, res) {
 
     res.json({profiles : ["PARTICULIER","PRO"]})

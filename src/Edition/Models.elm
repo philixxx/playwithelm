@@ -13,6 +13,7 @@ type alias Model =
     , savezoomlevelendpoint : String
     , savecenterendpoint : String
     , addSpotendpoint : String
+    , removeSpotendpoint : String
     }
 
 
@@ -22,4 +23,5 @@ initialModel flags =
     , savezoomlevelendpoint = flags.mapendpoint ++ "/savezoomlevel"
     , savecenterendpoint = flags.mapendpoint ++ "/savecenter"
     , addSpotendpoint = flags.mapendpoint ++ "/addSpot"
+    , removeSpotendpoint = flags.mapendpoint ++ "/removeSpot"
     }

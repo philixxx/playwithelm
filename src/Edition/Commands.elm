@@ -8,7 +8,7 @@ import EventMap.Commands exposing (..)
 import Messages exposing (EditMessage(..))
 import EventMap.Models exposing (..)
 import Spot.Commands
-import Spot.Models exposing (Spot)
+import Spot.Models exposing (Spot, SpotId)
 
 
 type alias Rien =
@@ -19,6 +19,12 @@ type alias Rien =
 addSpot : String -> Spot -> Cmd EditMessage
 addSpot endpoint spot =
     Http.post decodeNothing endpoint (Http.string (Json.encode 0 (Spot.Commands.encodeFeature spot |> Json.object)))
+        |> Task.perform AddSpotFailed AddSpotDone
+
+
+removeSpot : String -> SpotId -> Cmd EditMessage
+removeSpot endpoint spotId =
+    Http.post decodeNothing endpoint (Http.string (Json.string spotId |> Json.encode 0))
         |> Task.perform AddSpotFailed AddSpotDone
 
 

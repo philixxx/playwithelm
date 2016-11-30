@@ -118,7 +118,7 @@ update msg model =
                                 newEm =
                                     { eventMap | draw = newDraw }
                             in
-                                ( { model | eventMap = newEm }, Cmd.none )
+                                ( { model | eventMap = newEm }, Cmd.map EditMsg (Edition.Commands.removeSpot model.removeSpotendpoint (spotId)) )
 
                         otherwise ->
                             ( model, Cmd.none )
