@@ -17,7 +17,7 @@ toggleBlock status =
             button [ onClick (Unblock), class "toto" ] [ text ("Débloquer") ]
 
         UNKNOWN ->
-            button [ onClick (Block), class "toto " ] [ text ("Error") ]
+            button [ onClick (Block), class "toto " ] [ text ("Non défini") ]
 
 
 view : Spot -> Html Msg
@@ -28,6 +28,7 @@ view spot =
         , td [] [ text (statusToString spot.properties.status) ]
         ]
 
+
 viewedit : Spot -> Html Msg
 viewedit spot =
     tr []
@@ -36,6 +37,7 @@ viewedit spot =
         , td [] [ text (toString spot.properties.sectorIndex) ]
         , input [ onInput SectorIndexChange ] []
         ]
+
 
 statusToString : SpotStatus -> String
 statusToString status =

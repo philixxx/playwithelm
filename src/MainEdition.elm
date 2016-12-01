@@ -12,6 +12,7 @@ import Leaflet.Messages
 import EventMap.Models exposing (Center)
 import Spot.Commands exposing (spotDecode)
 import Json.Decode exposing (decodeValue)
+import Spot.Models exposing (Spot, SpotStatus)
 
 
 init : Flags -> ( Model, Cmd Msg )
@@ -65,7 +66,17 @@ spotAdded spot =
     in
         case s of
             Ok a ->
-                EditMsg (LeafletSpotMsg (Leaflet.Messages.SpotAdded a))
+                let
+                    spotProperties =
+                        a.properties
+
+                    newSpotProperties =
+                        { spotProperties | status = Spot.Models.AVAILABLE }
+
+                    spotAvailable =
+                        { a | properties = newSpotProperties }
+                in
+                    EditMsg (LeafletSpotMsg (Leaflet.Messages.SpotAdded spotAvailable))
 
             Err error ->
                 Debug.log ("Error when add" ++ error)
