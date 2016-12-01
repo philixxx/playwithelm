@@ -17,7 +17,7 @@ init flags =
         cmds =
             Cmd.batch
                 [ Cmd.map EventMsg (fetchAll (flags.mapendpoint))
-                , Cmd.map ProfileMsg (fetchProfile (flags.profileendpoint))
+                , Cmd.map ProfileMsg (fetchProfile (flags.eventendpoint ++ "/profiles"))
                 ]
     in
         ( initialModel flags, cmds )

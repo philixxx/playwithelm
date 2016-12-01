@@ -6,15 +6,13 @@ var Elm = require('./MainManagement.elm');
 
 var mountNode = document.getElementById('main');
 
-var app = Elm.Main.embed(mountNode);
+var app = Elm.Main.embed(mountNode,  window.options);
 
 app.ports.setView.subscribe(function(data){
     console.log(data);
     global.map.setView.apply(global.map, data);
 });
 app.ports.loadData.subscribe(function(data){
-    console.log("InLoadData", JSON.stringify(data));
-
     dataManager.loadDataFromJson(data,global.drawnItems )
 });
 

@@ -8,8 +8,7 @@ import Quote.Models exposing (..)
 
 type alias Flags =
     { mapendpoint : String
-    , quoteendpoint : String
-    , profileendpoint : String
+    , eventendpoint : String
     }
 
 
@@ -29,6 +28,6 @@ initialModel flags =
     , basket = { spots = [] }
     , profile = { profiles = [] }
     , currentProfile = "None"
-    , quote = { url = flags.quoteendpoint }
+    , quote = { url = flags.eventendpoint ++ "/pricequote" }
     , quotation = { quotation = 1 }
     }

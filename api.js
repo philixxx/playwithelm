@@ -12,7 +12,7 @@ server.get('/api/block/:id', function (req, res) {
     res.json({Id: req.params.id, SectorName: "C", SectorIndex: 1, Status : "BLOCKED"})
 
 })
-server.post('/api/pricequote', function (req, res) {
+server.post('/event/pricequote', function (req, res) {
 
     res.json({quotation: 10})
 
@@ -39,7 +39,7 @@ server.post('/map/removeSpot', function (req, res) {
     res.json({rien: 10})
 
 })
-server.get('/api/profiles', function (req, res) {
+server.get('/event/profiles', function (req, res) {
 
     res.json({profiles : ["PARTICULIER","PRO"]})
 

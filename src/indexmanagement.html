@@ -7,13 +7,20 @@
     <link rel="stylesheet" href="./main.css" />
     <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script>
+    window.options = {
+      mapendpoint : "http://localhost:5000/map"
+     ,eventendpoint : "http://localhost:5000/event"
+    };
+    </script>
 </head>
 <body>
     <div>Management View</div>
     <div id="main"></div>
+    <div id="map"></div>
 
     <script src="/appmanagement.js"></script>
-    <script src="http://localhost:3001/example/management/js/bundle.js"></script>
+    <script src="http://localhost:3001/example/js/management.js"></script>
 
 </body>
 </html>
