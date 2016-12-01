@@ -1,6 +1,6 @@
 'use strict';
 // require('ace-css/css/ace.css');
-require('font-awesome/css/font-awesome.css');
+// require('font-awesome/css/font-awesome.css');
 // On importe index.html pour qu'il soit intégré au *dist*
 var Elm = require('./MainReservation.elm');
 
