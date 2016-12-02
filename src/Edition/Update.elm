@@ -9,7 +9,6 @@ import EventMap.Commands exposing (encode)
 import Leaflet.Ports
 import Leaflet.Messages
 import Sector.Messages
-import Sector.Update
 import Sector.Update exposing (..)
 
 

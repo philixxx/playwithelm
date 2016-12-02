@@ -56,10 +56,13 @@ list : SpotList -> Html SpotList.Messages.Msg
 list spots =
     div [ class "p2" ]
         [ text (toString (List.length spots))
+        , h4 [] [ text "Spots sélectionnés"]
         , table []
             [ thead []
                 [ tr []
                     [ th [] [ text "Id" ]
+                    , th [] [ text "SectorName" ]
+                    , th [] [ text "SectorIndex" ]
                     , th [] [ text "Actions" ]
                     ]
                 ]

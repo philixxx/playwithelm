@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="./main.css" />
     <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <style>
+    .needAbsolut{
+        position : absolute;
+        color : white;
+        font-size: 9px;
+    }
+    </style>
     <script>
     window.options = {
       mapendpoint : "http://localhost:5000/map"
@@ -16,8 +23,8 @@
 </head>
 <body>
     <div>Management View</div>
-    <div id="main"></div>
     <div id="map"></div>
+    <div id="main"></div>
 
     <script src="/appmanagement.js"></script>
     <script src="http://localhost:3001/example/js/management.js"></script>

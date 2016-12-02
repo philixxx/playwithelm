@@ -24,6 +24,8 @@ view : Spot -> Html Msg
 view spot =
     tr []
         [ td [] [ text (toString spot.properties.id) ]
+        , td [] [ text (toString spot.properties.sectorName) ]
+        , td [] [ text (toString spot.properties.sectorIndex) ]
         , toggleBlock spot.properties.status
         , td [] [ text (statusToString spot.properties.status) ]
         ]

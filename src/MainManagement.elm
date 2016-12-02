@@ -6,6 +6,8 @@ import Management.Models exposing (Model, initialModel)
 import Management.View exposing (view)
 import Management.Update exposing (update)
 import EventMap.Commands exposing (fetchAll)
+import Leaflet.Ports
+import Leaflet.Messages
 
 
 type alias Flags =
@@ -26,8 +28,20 @@ initf flags =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Sub.batch
+        [ Leaflet.Ports.spotActionOn mapJsMsg ]
 
+
+mapJsMsg : ( String, String ) -> Msg
+mapJsMsg ( action, id ) =
+    let
+        msg =
+            if action == "SELECTED" then
+                Leaflet.Messages.SpotSelected
+            else
+                Leaflet.Messages.SpotUnselected
+    in
+        (SpotttClickedMsg (msg id))
 
 
 -- MAIN

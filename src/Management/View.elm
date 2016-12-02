@@ -26,6 +26,7 @@ page model =
         [ section
             [ class "klapp" ]
             [ viewMap model.eventMap
+            , Html.App.map SpotListMsg (SpotList.View.view model.selectedSpots)
             ]
         ]
 
@@ -36,6 +37,5 @@ viewMap eventMap =
         [ class "header" ]
         [ div []
             [ Html.App.map EventMsg (EventMap.EventMapView.view eventMap)
-            , Html.App.map SpotListMsg (SpotList.View.view eventMap.draw.features)
             ]
         ]
